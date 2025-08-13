@@ -3,962 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andhra Pregnancy Diet Plan for Monika</title>
+    <title>Amma, Nenu Ikkada!</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        html {
-            scroll-behavior: smooth; 
-        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7fafc; 
+            background-color: #FFF0F5; /* Lavender Blush */
         }
-        .meal-card {
-            background-color: white;
-            border-radius: 0.5rem; 
-            padding: 1.5rem; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
-            margin-bottom: 1rem; 
+        .card-title, .day-counter {
+            font-family: 'Baloo 2', cursive;
         }
-        .meal-card h3 {
-            font-size: 1.125rem; 
-            font-weight: 600; 
-            color: #2d3748; 
-            margin-bottom: 0.5rem; 
+        .baby-message {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.25rem;
+            line-height: 1.75;
+            color: #5C5470; /* A soft, dark purple */
+            min-height: 150px; /* To prevent layout shift */
         }
-        .meal-card p {
-            color: #4a5568; 
-            font-size: 0.875rem; 
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite both;
         }
-        .modal {
-            display: none; 
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-            padding-top: 60px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        .modal-close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-        }
-        .modal-close:hover,
-        .modal-close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .info-button { 
-            background-color: #4299e1; 
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem; 
-            font-weight: 500; 
-            transition: background-color 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        .info-button:hover {
-            background-color: #3182ce; 
-        }
-        input[type="date"] {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-color: white;
-            border: 1px solid #cbd5e0; 
-            padding: 0.4rem 0.75rem; 
-            border-radius: 0.375rem; 
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
-            line-height: 1.5; 
-            color: currentColor; 
-        }
-        input[type="date"]:focus {
-            outline: none;
-            border-color: #667eea; 
-            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.4); 
-        }
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            opacity: 1;
-            cursor: pointer;
-            filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg); 
-        }
-        .shortcut-button {
-            background-color: #667eea; 
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-        .shortcut-button:hover {
-            background-color: #5a67d8; 
-        }
-        .overview-extra-info p, .overview-extra-info div { 
-            margin-bottom: 0.5rem; 
-            font-size: 0.9rem; 
-        }
-        .overview-extra-info strong {
-            color: #5a67d8; 
-        }
-         .loader-text { 
-            color: #9ca3af; 
-            font-style: italic;
+        @keyframes heartbeat {
+            from {
+                transform: scale(1);
+                animation-timing-function: ease-out;
+            }
+            10% {
+                transform: scale(0.91);
+            }
+            17% {
+                transform: scale(0.98);
+            }
+            33% {
+                transform: scale(0.87);
+            }
+            45% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
-<body class="antialiased text-gray-900">
-    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-teal-600">Nourishing Monika &amp; Baby: Daily Diet Guide</h1>
-            <p id="currentDateDisplay" class="text-lg text-gray-600 mt-2"></p>
-        </header>
+<body class="flex items-center justify-center min-h-screen bg-pink-50 p-4">
 
-        <div id="planNotActiveMessage" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md mb-6" role="alert" style="display: none;">
-            <p class="font-bold">Diet Plan Information for Monika Today</p>
-            <p>The detailed daily diet plan is designed for the period from May 29th to January 23rd, based on an LMP of April 23rd. If today's date falls outside this specific window, please refer to the general nutritional information and tips provided, or consult your healthcare provider.</p>
+    <div class="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-8 text-center">
+        
+        <!-- Header Section -->
+        <div class="mb-4">
+            <h1 class="card-title text-3xl md:text-4xl font-bold text-pink-500">Priyamaina Amma ki...</h1>
+            <p class="text-gray-500">Nee potta lo unna mee chinni "Mango" nunchi!</p>
         </div>
 
-        <div id="todaysPlanSection">
-            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-                <h2 class="text-2xl font-semibold text-teal-700 mb-1">Monika's Overview for Today</h2>
-                <p class="text-gray-700"><span class="font-medium">Trimester:</span> <span id="currentTrimester"></span></p>
-                <p class="text-gray-700"><span class="font-medium">Pregnancy Week:</span> <span id="currentPregnancyWeek"></span></p>
-                <div class="mt-3 overview-extra-info">
-                    <p><span class="font-medium">Baby's Size:</span> <span id="currentBabySizeText"></span></p>
-                    <p><span class="font-medium">✨ Daily Fact:</span> <span id="currentDailyFact" ></span></p>
-                    <p><span class="font-medium">✨ Daily Tip:</span> <span id="currentDailyTip" ></span></p>
-                </div>
-            </div>
-
-            <div class="mb-6"> 
-                <h2 class="text-2xl font-semibold text-teal-700 mb-4">Monika's Meal Plan for Today</h2>
-                <div id="todaysMealsContent"> 
-                </div>
-            </div>
-
-            <div id="trimesterFocus" class="bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700 p-6 rounded-md mb-6">
-                <h2 class="text-xl font-semibold text-indigo-800 mb-3">Trimester Focus & Tips for Monika (Today)</h2>
-                <ul id="trimesterFocusList" class="list-disc list-inside space-y-1 text-sm">
-                </ul>
-            </div>
+        <!-- Heart Icon -->
+        <div class="my-6">
+            <svg class="w-16 h-16 text-red-400 mx-auto heartbeat" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
         </div>
 
-        <div class="mt-10 pt-8 border-t border-gray-300" id="datePickerMainSection"> 
-            <h2 class="text-2xl font-semibold text-purple-700 mb-4 text-center md:text-left">View Plan for Monika on a Specific Date</h2>
-            <div class="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center">
-                <input type="date" id="dateInput" class="w-full h-12 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:flex-1">
-            </div>
-            <div class="mb-6 text-center md:text-left">
-                <button id="viewTomorrowButton" class="shortcut-button w-full sm:w-auto h-12 flex items-center justify-center">📅 View Tomorrow's Plan</button>
-                </div>
-
-            <div id="selectedDatePlanSection" class="mt-4" style="display: none;">
-                <div id="selectedDatePlanMessage" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md mb-6" role="alert" style="display: none;">
-                </div>
-                <div id="selectedDatePlanDetails">
-                    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-                        <h3 class="text-xl font-semibold text-purple-700 mb-1">Overview for Monika on <span id="selectedDateDisplay"></span></h3>
-                        <p class="text-gray-700"><span class="font-medium">Trimester:</span> <span id="selectedDateTrimester"></span></p>
-                        <p class="text-gray-700"><span class="font-medium">Pregnancy Week:</span> <span id="selectedDatePregnancyWeek"></span></p>
-                        <div class="mt-3 overview-extra-info">
-                            <p><span class="font-medium">Baby's Size:</span> <span id="selectedDateBabySizeText"></span></p>
-                            <p><span class="font-medium">✨ Daily Fact:</span> <span id="selectedDateDailyFact"></span></p>
-                            <p><span class="font-medium">✨ Daily Tip:</span> <span id="selectedDateDailyTip"></span></p>
-                        </div>
-                    </div>
-                    <div class="mb-6"> 
-                        <h3 class="text-xl font-semibold text-purple-700 mb-4">Meal Plan for Monika on <span class="selectedDateDisplayInline"></span></h3>
-                        <div id="selectedDateMealsContent"> 
-                        </div>
-                    </div>
-                    <div id="selectedDateTrimesterFocus" class="bg-fuchsia-50 border-l-4 border-fuchsia-500 text-fuchsia-700 p-6 rounded-md mb-6">
-                        <h3 class="text-lg font-semibold text-fuchsia-800 mb-3">Trimester Focus & Tips for Monika</h3>
-                        <ul id="selectedDateTrimesterFocusList" class="list-disc list-inside space-y-1 text-sm">
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <!-- Day Counter -->
+        <div class="mb-6">
+            <h2 class="day-counter text-5xl md:text-6xl font-bold text-purple-600" id="day-counter">Day 114</h2>
+            <p class="text-gray-600" id="week-counter">Week 17 mana journey lo!</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-10">
-            <button id="foodSafetyBtn" class="info-button w-full">Food Safety Guidelines</button>
-            <button id="keyNutrientsBtn" class="info-button w-full">Key Nutrients Info</button>
-            <button id="lifestyleBtn" class="info-button w-full">Lifestyle & Supplements</button>
+        <!-- Baby's Message -->
+        <div class="bg-rose-50 rounded-xl p-4 my-4 border border-rose-200">
+            <p class="baby-message" id="baby-message">Loading chesthunna amma... nee kosam mee Mango oka manchi maata chepthaa...</p>
         </div>
         
-        <div id="foodSafetyModal" class="modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeModal('foodSafetyModal')">&times;</span>
-                <h2 class="text-2xl font-semibold text-red-700 mb-4">Food Safety Guidelines for Monika</h2>
-                <div id="foodsToAvoidContent" class="mb-6">
-                    <h3 class="text-xl font-medium text-red-600 mb-2">Foods to Limit or Avoid</h3>
-                     </div>
-                <div id="foodHandlingContent">
-                    <h3 class="text-xl font-medium text-red-600 mb-2">Safe Food Handling Practices</h3>
-                     </div>
-            </div>
+        <!-- Footer for Dad -->
+        <div class="mt-8">
+            <p class="text-sm text-gray-400">Itlu,</p>
+            <p class="text-md font-semibold text-gray-500">Nee Mango</p>
+            <p class="text-xs text-gray-400 mt-4">(With lots of love, from your Nanna)</p>
         </div>
 
-        <div id="keyNutrientsModal" class="modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeModal('keyNutrientsModal')">&times;</span>
-                <h2 class="text-2xl font-semibold text-green-700 mb-4">Key Nutrients for Monika's Pregnancy</h2>
-                <div id="keyNutrientsContent">
-                     </div>
-            </div>
-        </div>
-
-        <div id="lifestyleModal" class="modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeModal('lifestyleModal')">&times;</span>
-                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Lifestyle & Supplements for Monika</h2>
-                <div id="lifestyleContent">
-                     </div>
-            </div>
-        </div>
-
-        <footer class="text-center text-sm text-gray-500 mt-12 py-4 border-t border-gray-200">
-            <p>&copy; <span id="currentYear"></span> Pregnancy Diet Guide for Monika. Consult your doctor for personalized advice.</p>
-            <p class="mt-1">This plan is based on the "Nourishing Two: A Comprehensive Andhra Pradesh Pregnancy Diet Guide" document.</p>
-        </footer>
     </div>
 
     <script>
-        // --- DATA STORE ---
-        const allDietData = {
-            lmpDay: 23, 
-            lmpMonth: 3, 
-            babySizeComparisons: [ 
-                "a tiny poppy seed!", "a sesame seed!", "a lentil!", "a blueberry!", "a raspberry!", 
-                "a kidney bean!", "an olive!", "a grape!", "a lime!", 
-                "a pea pod!", "a lemon!", "an apple!", "an avocado!", 
-                "a turnip!", "a bell pepper!", "a sweet potato!", "an heirloom tomato!", 
-                "a pomegranate!", "a small cantaloupe!", "an ear of corn!", "a large banana!", 
-                "a rutabaga!", "an eggplant!", "a cauliflower head!", "a butternut squash!", 
-                "a cabbage head!", "a coconut!", "a jicama!", "a small pumpkin!", 
-                "a pineapple!", "a honeydew melon!", "a mini watermelon!", "a spaghetti squash!", 
-                "a bunch of Swiss chard!", "a small watermelon!", "a pumpkin!", "a watermelon!" 
-            ],
-            dailyFacts: [ 
-                "Your baby's heart will begin to beat around week 6!",
-                "Morning sickness can happen any time of day, not just in the morning.",
-                "By week 10, your baby has all their major organs.",
-                "You might start feeling your baby move between weeks 16-25 (quickening).",
-                "Your baby can hear your voice and other sounds from around week 18.",
-                "Fingerprints and footprints are formed by around week 20.",
-                "Babies practice breathing by inhaling and exhaling amniotic fluid.",
-                "Your baby develops sleeping and waking patterns in the womb.",
-                "The vernix caseosa, a waxy coating, protects your baby's skin in the amniotic fluid.",
-                "By the third trimester, your baby can open and close their eyes.",
-                "Frequent urination is common due to pressure on your bladder.",
-                "Nesting instincts might kick in during the third trimester!",
-                "Your sense of smell might become much stronger during pregnancy.",
-                "Food cravings and aversions are very common and can change.",
-                "Staying hydrated is extra important during pregnancy."
-            ],
-            dailyTips: [ 
-                "Take your prenatal vitamins daily as prescribed by your doctor.",
-                "Listen to your body and rest when you need to.",
-                "Eat small, frequent meals if you're experiencing nausea.",
-                "Stay hydrated by drinking plenty of water throughout the day.",
-                "Incorporate gentle exercise like walking into your routine, if approved by your doctor.",
-                "Wear comfortable shoes and clothing.",
-                "Practice good posture to help with back pain.",
-                "Talk to your baby; they can hear you!",
-                "Moisturize your belly to help with dry or itchy skin.",
-                "Prepare a hospital bag in your third trimester.",
-                "Attend all your prenatal appointments.",
-                "Don't hesitate to ask your doctor any questions you have.",
-                "Focus on a balanced diet rich in fruits, vegetables, and protein.",
-                "Avoid foods that are unsafe during pregnancy (check the Food Safety section!).",
-                "Enjoy this special time and bond with your growing baby."
-            ],
-            trimesters: { 
-                T1: {
-                    name: "First Trimester",
-                    planStartMonth: 4, 
-                    planStartDate: 29,    
-                    planEndMonth: 6,   
-                    planEndDate: 22,
-                    focus: [
-                        "Folate is crucial for neural tube development. Include plenty of green leafy vegetables, legumes, and fortified grains.",
-                        "Manage Nausea: Smaller, frequent meals may be better tolerated. Ginger (e.g., allam chutney, ginger tea in moderation) can help. Avoid overly spicy or fatty foods if they trigger nausea.",
-                        "Nutrient Density: Even if appetite is low, focus on making every bite count with nutrient-rich foods.",
-                        "Hydration: Essential, especially if experiencing vomiting. Sip fluids throughout the day.",
-                        "Iron: Begin building iron stores. Include green leafy vegetables, ragi, dates, and legumes."
-                    ],
-                    days: [ 
-                        { 
-                            earlyMorning: "1 glass warm water with lemon juice. After 15-20 mins: 5-6 soaked almonds + 2 walnuts.",
-                            breakfast: "2 soft Pesarattu (Moong Dal Dosa) with 2 tsp Allam (Ginger) chutney.",
-                            midMorningSnack: "1 medium Guava OR 1 small bowl Pomegranate.",
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Palakura Pappu (Spinach Dal), 1 small bowl of Cabbage Vepudu (stir-fry, minimal oil), 1/2 small bowl of Curd.",
-                            eveningSnack: "1 glass Buttermilk (Majjiga) with curry leaves OR 1 small bowl Sprouts chaat (steamed).",
-                            dinner: "1.5 bowls of Vegetable Khichdi with 1/2 small bowl of curd.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of mixed nuts (almonds, cashews).",
-                            breakfast: "1 large bowl of Vegetable Upma (with carrots, peas, beans) with 1/2 small bowl of curd.",
-                            midMorningSnack: "1 medium Apple OR 1 Orange.",
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Tomato Pappu (Tomato Dal), 1 small bowl of Bendakaya (Okra) Fry (minimal oil), 1 small portion of cooked carrots/cucumber (if preferred over raw).",
-                            eveningSnack: "1 glass Coconut Water OR 1 small Banana.",
-                            dinner: "1.5 bowls of Rice, 1 small bowl of Sorakaya (Bottle Gourd) Curry, 1/2 small bowl of mixed dal.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk with a pinch of turmeric."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with a few drops of ginger juice (if nausea). After 15-20 mins: 2-3 Dates.",
-                            breakfast: "2 Plain Dosa with 1 small bowl of vegetable sambar and 2 tsp coconut chutney.",
-                            midMorningSnack: "1 small bowl mixed fruits (e.g., banana, apple slices).", 
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Gongura Pappu (Sorrel Leaves Dal - in moderation), 1 small bowl of Dondakaya (Ivy Gourd) Vepudu (minimal oil), 1/2 small bowl of Curd.",
-                            eveningSnack: "1 handful Roasted Peanuts (unsalted) OR 1 glass Ragi Malt (unsweetened or lightly sweetened with jaggery).",
-                            dinner: "1 large bowl of Vegetable Pulao (with rice, peas, carrots, beans) with 1 small bowl of plain curd or vegetable raita.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: 5-6 soaked almonds.",
-                            breakfast: "1 Boiled Egg (well-cooked) and 2 slices whole wheat toast OR 1 bowl of Oats Porridge with milk and chopped fruit/nuts.",
-                            midMorningSnack: "1 medium Sapota (Chikoo) OR 1 small bowl Grapes.", 
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Chicken Curry (well-cooked, mildly spiced) OR Fish Pulusu (low-mercury fish, well-cooked), 1 small bowl of Vegetable Stir-fry (e.g., beans, carrot), 1/2 small bowl of Curd.", 
-                            eveningSnack: "1 small Sweet Potato (boiled/steamed) chaat OR 1 glass Lemonade (fresh, not too sugary).",
-                            dinner: "1.5 bowls of Rice, 1 small bowl of Mixed Vegetable Curry, 1/2 small bowl of curd.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk with a pinch of cardamom."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with lemon. After 15-20 mins: 2 walnuts + 1 fig (soaked).",
-                            breakfast: "3 Dibba Rotti (thick rice pancake, small pieces) with 2 tsp palli (groundnut) chutney OR 1 bowl of Semiya (Vermicelli) Upma with vegetables.",
-                            midMorningSnack: "1 medium Sapota (Chikoo) OR 1 small bowl Watermelon.",
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Mixed Vegetable Sambar (with drumstick, pumpkin, brinjal - moderate), 1 small bowl of Thotakura (Amaranth Leaves) Fry (minimal oil), 1/2 small bowl of Curd.",
-                            eveningSnack: "1 small bowl Sundal (boiled chickpeas with light seasoning) OR 1 glass fruit juice (freshly squeezed, pasteurized, e.g., orange - 150ml).",
-                            dinner: "1.5 bowls of Bisi Bele Bath (lentil-rice dish with vegetables) with 1/2 small bowl of raita.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of raisins (soaked).",
-                            breakfast: "2 Ragi Dosa (Finger Millet Dosa) with 1 small bowl of tomato-onion chutney.",
-                            midMorningSnack: "1 medium Banana.",
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Beerakaya Pappu (Ridge Gourd Dal), 1 small bowl of Capsicum Fry (minimal oil), 1/2 small bowl of carrot poriyal.",
-                            eveningSnack: "1 glass Lassi (sweet or salted, homemade with pasteurized curd) OR 1 piece Chikki (peanut/sesame jaggery bar - small).",
-                            dinner: "1.5 bowls of Rice, 1 bowl of Egg Curry (2 eggs, well-cooked) OR 1 bowl of Paneer Butter Masala (homemade, less cream/butter, more tomato gravy), 1/2 small bowl of green beans curry.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk with a pinch of saffron (optional)."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with honey & lemon. After 15-20 mins: 4-5 cashews.",
-                            breakfast: "1 large bowl of Pongal (rice and lentil preparation, savory) with 1/2 small bowl of gothsu (brinjal curry) or coconut chutney.",
-                            midMorningSnack: "1 small bowl Muskmelon OR 1 Orange.",
-                            lunch: "1.5 bowls of Rice, 1 small bowl of Pulusu (tamarind stew with vegetables like okra, drumstick, sweet potato), 1 small bowl of Aratikaya Vepudu (Raw Banana Fry, minimal oil), 1/2 small bowl of Curd.",
-                            eveningSnack: "1 handful Makhana (fox nuts, roasted) OR 1 glass fresh lime soda (homemade, less sugar).",
-                            dinner: "1.5 bowls of Vegetable Khichdi (with rice, moong dal, mixed vegetables like carrot, peas, beans) with 1 tsp ghee and 1/2 small bowl of curd.",
-                            bedtime: "Optional: 1 glass (150ml) warm milk."
-                        }
-                    ]
-                },
-                T2: { 
-                    name: "Second Trimester",
-                    planStartMonth: 6, 
-                    planStartDate: 23,
-                    planEndMonth: 9,   
-                    planEndDate: 28,
-                    focus: [
-                        "Increased Calories: An additional ~350 kcal per day is needed. Focus on nutrient-dense foods.",
-                        "Increased Protein: Needs rise. Include dals, legumes, dairy, eggs, and lean meats/fish.",
-                        "Iron: Demand increases significantly. Emphasize iron-rich foods and enhance absorption with Vitamin C.",
-                        "Calcium: Continue focusing on calcium-rich foods like dairy, ragi, sesame seeds.",
-                        "DHA: Important for brain and eye development. Include fatty fish (low mercury), walnuts, flaxseeds."
-                    ],
-                    days: [ 
-                        { 
-                            earlyMorning: "1 glass warm water with lemon. After 15-20 mins: 6-8 soaked almonds + 2-3 walnuts.",
-                            breakfast: "2-3 soft Pesarattu with 2 tsp Allam chutney + 1 boiled egg (well-cooked).",
-                            midMorningSnack: "1 medium Apple + 1 small bowl of Curd (100g).",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Palakura Pappu (Spinach Dal), 1 bowl of Cabbage Vepudu (minimal oil), 1 bowl of Curd.",
-                            eveningSnack: "1 glass Buttermilk (Majjiga) + 1 small bowl Chana Chaat (boiled chickpeas with onion, tomato, lemon).",
-                            dinner: "2 bowls of Rice, 100g grilled/baked Fish (low mercury, well-cooked) OR 1.5 bowls of mixed vegetable kurma.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of mixed nuts and seeds (almonds, walnuts, pumpkin seeds).",
-                            breakfast: "1.5 large bowls of Vegetable Upma (with extra vegetables and 1 tbsp roasted peanuts) with 1 bowl of curd.",
-                            midMorningSnack: "1 Orange + 1 small glass Milk (150ml).",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Tomato Pappu, 1 bowl of Bendakaya (Okra) Fry (minimal oil) + 1 bowl of Bachalikura (Malabar Spinach) stir-fry, 1/2 small bowl of carrot-beans stir-fry.",
-                            eveningSnack: "1 glass Coconut Water + 1 medium Banana.",
-                            dinner: "2 bowls of Rice, 100g Chicken curry (well-cooked, lean) OR 1.5 bowls of Sorakaya (Bottle Gourd) Curry with Chana Dal, 1/2 bowl of mixed dal.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with a pinch of turmeric."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: 3-4 Dates + 4-5 almonds.",
-                            breakfast: "2-3 Plain Dosa with 1.5 bowls of vegetable sambar and 2 tsp coconut chutney + 1 glass (200ml) milk.",
-                            midMorningSnack: "1 small bowl mixed fruits (e.g., grapes, apple slices, banana).", 
-                            lunch: "2 bowls of Rice, 1.5 bowls of Gongura Pappu (in moderation) OR Moong Dal with spinach, 1 bowl of Dondakaya (Ivy Gourd) Coconut Fry, 1 bowl of Curd.",
-                            eveningSnack: "1 handful Roasted Chana (chickpeas) OR 1 glass Ragi Malt with 1 tsp jaggery + 1 small fruit.",
-                            dinner: "1.5 large bowls of Vegetable Pulao (with extra vegetables and paneer cubes/peas) with 1.5 bowls of plain curd or vegetable raita.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: 6-8 soaked almonds + 1 dried fig.",
-                            breakfast: "2 Boiled Eggs (well-cooked) and 2 slices whole wheat toast with avocado/butter OR 1.5 bowls of Oats Porridge with milk, chopped fruits, nuts, and seeds.",
-                            midMorningSnack: "1 medium Pomegranate.",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Chicken Biryani (homemade, mildly spiced with vegetables) OR Fish Fry (low-mercury fish, shallow fried, well-cooked) with a side of vegetable curry, 1 bowl of Raita.", 
-                            eveningSnack: "1 large Sweet Potato (boiled/steamed) chaat with lemon and chaat masala OR 1 Paneer Tikka skewer (homemade, baked/grilled).",
-                            dinner: "2 bowls of Rice, 1.5 bowls of Tomato Dal (Pappu), 1 bowl of Brinjal Fry (Vankaya Vepudu, minimal oil).",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with a pinch of cardamom."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with lemon. After 15-20 mins: 2-3 walnuts + 5-6 pistachios.",
-                            breakfast: "1.5 bowls of Semiya (Vermicelli) Upma with plenty of vegetables and peanuts + 1 glass (200ml) buttermilk.",
-                            midMorningSnack: "1 medium Guava + 1 small bowl sprouts.",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Mixed Vegetable Sambar (with extra lentils and vegetables like drumstick, pumpkin, ash gourd), 1 bowl of Thotakura (Amaranth Leaves) Garlic Fry, 1 bowl of Curd.",
-                            eveningSnack: "1.5 bowls of Sundal (boiled black chickpeas/rajma) OR Fruit salad (e.g., apple, banana, grapes) with a sprinkle of nuts.", 
-                            dinner: "2 bowls of Bisi Bele Bath (with extra vegetables and 1 tsp ghee) with 1 bowl of cucumber raita.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of soaked raisins and 2-3 cashews.",
-                            breakfast: "2-3 Ragi Dosa with 1.5 bowls of tomato-onion chutney and 1/2 bowl of sambar.",
-                            midMorningSnack: "1 medium Banana + 1 handful groundnuts.",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Beerakaya Pappu (Ridge Gourd Dal), 1 bowl of Capsicum-Onion Fry, 1/2 bowl of beetroot poriyal.",
-                            eveningSnack: "1 glass Lassi (homemade, with fruit like mango if seasonal) OR 1 small bowl Poha (flattened rice) with vegetables.",
-                            dinner: "2 bowls of Rice, 1.5 bowls of Egg Bhurji (2-3 eggs) OR 1.5 bowls of Paneer Bhurji (scrambled Indian cheese with spices and vegetables), 1 bowl of green peas curry.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with a pinch of saffron."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with honey & lemon. After 15-20 mins: 5-6 almonds + 1 date.",
-                            breakfast: "1.5 large bowls of Pongal (with extra moong dal and 1 tsp ghee) with 1 bowl of gothsu or coconut chutney + 1 small fruit.",
-                            midMorningSnack: "1 small bowl Muskmelon chunks + 1/2 bowl of curd.",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Pulusu (tamarind stew with a variety of vegetables like okra, drumstick, sweet potato, brinjal), 1 bowl of Aratikaya Vepudu (Raw Banana Fry, minimal oil), 1 bowl of Curd.",
-                            eveningSnack: "1.5 handful Makhana (roasted with a pinch of salt/pepper) OR 1 glass vegetable juice (e.g., carrot-tomato, fresh, pasteurized).",
-                            dinner: "2 bowls of Vegetable Khichdi (with extra dal and vegetables) with 1.5 tsp ghee and 1 bowl of curd/raita.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        }
-                    ]
-                },
-                T3: { 
-                    name: "Third Trimester",
-                    planStartMonth: 9, 
-                    planStartDate: 29,
-                    planEndMonth: 0,   
-                    planEndDate: 23,
-                    focus: [
-                        "Continued Caloric Needs: Maintain the additional ~350 kcal per day.",
-                        "Highest Protein Needs: Protein requirements peak. Ensure high-quality protein at each meal.",
-                        "Iron & Calcium: Continue to be critical. Iron stores for the baby are built up now.",
-                        "DHA: Essential for continued brain maturation.",
-                        "Fibre & Fluids: Help manage constipation and prepare for labor."
-                    ],
-                    days: [ 
-                        { 
-                            earlyMorning: "1 glass warm water with lemon. After 15-20 mins: 8-10 soaked almonds + 3-4 walnuts.",
-                            breakfast: "2-3 soft Pesarattu with 1/2 bowl of Chana Masala (chickpea curry) OR mint chutney.",
-                            midMorningSnack: "1 medium Apple + 1 small bowl Greek Yogurt/Hung Curd (150g).",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Fish Curry (low mercury, e.g., sardines/pomfret, 100-120g fish) OR 1.5 bowls of Chicken Curry (100-120g chicken), 1 bowl of Palakura (Spinach) stir-fry with garlic, 1 bowl of Curd. (Vegetarian: 1.5 bowls of Rajma/Chole curry instead of fish/chicken).",
-                            eveningSnack: "1 glass Milkshake (banana/mango with milk and nuts, no added sugar) OR 1 bowl Mixed Sprouts and Corn Salad.", 
-                            dinner: "1.5 bowls of Rice, 1.5 bowls of Dal Palak (lentils with spinach), 1 bowl of carrot-peas curry.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with nuts powder."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of mixed nuts and seeds (include flaxseeds).",
-                            breakfast: "2 Moong Dal Cheela (lentil pancakes) stuffed with grated paneer/vegetables, with mint chutney + 1 glass milk.",
-                            midMorningSnack: "1 Orange + 1 handful roasted peanuts.",
-                            lunch: "2 bowls of Rice, 1.5 bowls of Dal Makhani (homemade, less butter/cream) OR 1.5 bowls of Soya Chunks Curry, 1 bowl of Bendakaya (Okra) Masala, 1 bowl of cucumber-tomato-onion raita.", 
-                            eveningSnack: "1 glass Coconut Water + 1 bowl Fruit Chaat (apple, banana, pomegranate).", 
-                            dinner: "1.5 bowls of Rice, 1.5 bowls of Egg Curry (2-3 eggs, well-cooked) OR 1.5 bowls of Mutter Paneer (peas and cottage cheese curry), 1 bowl of Thotakura (Amaranth) stir-fry.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with turmeric and black pepper."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: 4-5 Dates + 5-6 almonds.",
-                            breakfast: "2-3 Mixed Dal Dosa (adai) with 1 bowl of avial (mixed vegetables in coconut gravy) OR 2 slices whole wheat bread with 2 scrambled eggs and spinach.",
-                            midMorningSnack: "1 small bowl mixed berries (if available) OR 1 Guava + 1/2 bowl of curd.",
-                            lunch: "2 bowls of Rice OR Quinoa Pulao, 1.5 bowls of Gutti Vankaya Kura (Stuffed Brinjal Curry, ensure brinjal is well-cooked, moderate intake) OR 1.5 bowls of Chikkudu Kaya (Broad Beans) Curry, 1 bowl of Gongura Pachadi (pickle-style chutney, in moderation), 1 bowl of Curd.",
-                            eveningSnack: "1 glass Ragi Malt with nuts OR 1 bowl Steamed Corn with lemon and pepper.",
-                            dinner: "1.5 large bowls of Vegetable Biryani (with plenty of vegetables, paneer/soya chunks, and basmati rice) with 1.5 bowls of mixed vegetable raita.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: 6-8 soaked almonds + 2 dried apricots.",
-                            breakfast: "2 Vegetable Uthappam with 1.5 bowls of sambar + 1 glass (200ml) buttermilk.",
-                            midMorningSnack: "1 medium Pomegranate + 1 handful walnuts.",
-                            lunch: "2 bowls of Rice, 120g Fish Pulusu (low-mercury fish, well-cooked, flavorful gravy) OR Chicken Roast (well-cooked, mildly spiced), 1 bowl of Mixed Vegetable Curry (e.g., beans, carrot, potato), 1 bowl of Curd.", 
-                            eveningSnack: "1 large Sweet Potato, boiled and mashed with a pinch of jaggery OR 1 bowl Makhana (fox nuts) and peanut mix.",
-                            dinner: "1.5 bowls of Rice, 1.5 bowls of Methi Chicken (fenugreek chicken, well-cooked) OR 1.5 bowls of Methi Dal (fenugreek lentils), 1 bowl of Aloo Gobi (potato cauliflower, less potato).",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with a pinch of cardamom."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with lemon. After 15-20 mins: 2-3 walnuts + 1 tbsp mixed seeds (pumpkin, sunflower).",
-                            breakfast: "1.5 bowls of Oats with milk, loaded with fruits, nuts, and seeds OR 2 Pesarattu with onion-ginger topping and Allam chutney.",
-                            midMorningSnack: "1 medium Sapota (Chikoo) OR 1 small bowl Grapes.", 
-                            lunch: "2 bowls of Lemon Rice (with peanuts and curry leaves), 1.5 bowls of Mixed Vegetable Kootu (lentil and vegetable stew), 1 bowl of Cabbage Pachadi (cabbage relish), 1 bowl of Curd.",
-                            eveningSnack: "1 bowl Sundal (different legume, e.g., black-eyed peas) OR 1 whole wheat toast with peanut butter and banana slices.",
-                            dinner: "2 bowls of Ven Pongal (savory rice-lentil dish with ghee) with 1.5 bowls of sambar.",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water. After 15-20 mins: Handful of soaked black raisins and 2-3 cashews.",
-                            breakfast: "2-3 Ragi Idlis with 1.5 bowls of vegetable sambar and tomato chutney + 1 boiled egg.",
-                            midMorningSnack: "1 medium Banana + 1 small bowl yogurt with flaxseed powder.",
-                            lunch: "2 bowls of Rice, 100g Chicken stir-fry with bell peppers OR 100g Paneer stir-fry, 1.5 bowls of Beerakaya Koora (Ridge Gourd Curry with poppy seeds/sesame paste), 1 bowl of Masoor Dal Tadka, 1/2 bowl of beans poriyal.",
-                            eveningSnack: "1 glass Almond Milk with dates OR 1 piece Bellam Undrallu (steamed rice flour jaggery balls - small).",
-                            dinner: "1.5 bowls of Rice, 1.5 bowls of Fish Pulusu (low mercury, 100-120g fish) OR 1.5 bowls of Dal Palak (lentils with spinach), 1 bowl of Bendakaya Pulusu (okra tamarind stew).",
-                            bedtime: "Optional: 1 glass (200ml) warm milk with a pinch of saffron."
-                        },
-                        { 
-                            earlyMorning: "1 glass warm water with honey & lemon. After 15-20 mins: 5-6 almonds + 1-2 Brazil nuts (for selenium, if available).",
-                            breakfast: "1.5 large bowls of Khara Bath (savory semolina with vegetables and spices) with 1/2 bowl of coconut chutney + 1 small fruit.",
-                            midMorningSnack: "1 small bowl Grapes + 1 handful mixed seeds.",
-                            lunch: "2 bowls of Tomato Rice OR Vegetable Fried Rice (homemade, less oil, plenty of veggies), 1.5 bowls of Dalcha (lentil and meat/vegetable stew), 1 bowl of Potlakaya Koora (Snake Gourd Curry), 1 bowl of Curd.",
-                            eveningSnack: "1 glass Sattu drink (roasted gram flour drink, if available) OR 1 bowl Popcorn (plain, homemade).",
-                            dinner: "2 bowls of Vegetable and Moong Dal Khichdi with 1.5 tsp ghee, 1 bowl of kadhi (yogurt-gram flour curry) or plain curd, and papad (roasted).",
-                            bedtime: "Optional: 1 glass (200ml) warm milk."
-                        }
-                    ]
-                }
-            }, // This closing brace for 'trimesters' was missing its comma in a previous version.
-            foodSafety: {
-                foodsToAvoid: [
-                    { category: "High-Mercury Fish", items: "Shark, swordfish, king mackerel, tuna (especially bigeye), marlin, tilefish. Risk of mercury toxicity." },
-                    { category: "Undercooked/Raw Seafood", items: "Sushi, sashimi, raw oysters. Risk of bacteria, viruses, parasites." },
-                    { category: "Undercooked/Raw Meat & Poultry", items: "Rare or medium-rare meat. Risk of Toxoplasma, Salmonella." },
-                    { category: "Processed & Deli Meats", items: "Hot dogs, lunch meats (unless heated to 165°F). Risk of Listeria." },
-                    { category: "Raw or Undercooked Eggs", items: "Runny yolks, homemade mayonnaise. Risk of Salmonella." },
-                    { category: "Organ Meat (e.g., Liver)", items: "Limit to a few ounces per week. Very high in preformed Vitamin A." },
-                    { category: "Raw Sprouts", items: "Alfalfa, clover, radish, mung bean (unless cooked thoroughly). Risk of bacteria." },
-                    { category: "Unpasteurized Dairy & Juices", items: "Raw milk, some soft cheeses, unpasteurized juices. Risk of Listeria, Salmonella." },
-                    { category: "Excess Caffeine", items: "Limit to <200 mg per day (approx. 1-2 small cups of coffee)." },
-                    { category: "Alcohol & Tobacco", items: "Complete avoidance. Harmful to fetal development." },
-                ],
-                handlingPractices: [
-                    "<strong>Clean:</strong> Wash hands thoroughly with soap and water before, during, and after handling food. Wash all fruits and vegetables under running water. Clean and sanitize cutting boards, dishes, utensils, and countertops.",
-                    "<strong>Separate:</strong> Keep raw meat, poultry, seafood, and eggs separate from ready-to-eat foods to prevent cross-contamination. Use separate cutting boards.",
-                    "<strong>Cook:</strong> Cook foods to their safe minimum internal temperatures. Use a food thermometer. (e.g., Poultry to 165°F, Ground meats to 160°F, Fish to 145°F, Eggs until firm).",
-                    "<strong>Chill:</strong> Refrigerate perishable foods promptly (within 2 hours, or 1 hour if temperature is above 90°F). Keep refrigerator at or below 40°F."
-                ]
-            },
-            keyNutrients: {
-                title: "Understanding Key Nutrients",
-                sections: [
-                    { heading: "Calories", text: "An increase of ~350 kcal/day from the second trimester is needed, focusing on quality from nutrient-dense foods like whole grains, fruits, vegetables, and lean proteins." },
-                    { heading: "Protein", text: "Essential for fetal growth. Good Andhra sources: dals (kandi pappu, pesara pappu), legumes, milk products, eggs, fish, chicken." },
-                    { heading: "Iron", text: "Prevents anemia. Sources: green leafy vegetables (palakura, gongura), ragi, dates, legumes, meat. Vitamin C aids absorption." },
-                    { heading: "Folic Acid", text: "Prevents neural tube defects. Sources: green leafy vegetables, legumes, nuts, fortified grains." },
-                    { heading: "Calcium & Vitamin D", text: "For bone development. Sources: dairy, ragi, sesame seeds. Vitamin D from sunlight, fortified milk, eggs." },
-                    { heading: "DHA (Omega-3)", text: "For brain and eye development. Sources: fatty fish (low mercury), walnuts, flaxseeds." },
-                    { heading: "Hydration", text: "Aim for 2.5-3 liters of fluids daily. Water, coconut water, buttermilk are good choices." }
-                ]
-            },
-            lifestyleAndSupplements: {
-                title: "Healthy Lifestyle and Supplements",
-                sections: [
-                    { heading: "Supplements", text: "<strong>Crucial:</strong> Only take supplements (Iron, Folic Acid, Calcium, Vitamin D, DHA, B12) as prescribed by your doctor. Self-medication can be harmful." },
-                    { heading: "Physical Activity", text: "Regular, moderate activity like walking is generally beneficial, unless advised otherwise by your doctor. Avoid strenuous activity." },
-                    { heading: "Sunlight Exposure", text: "Safe exposure to early morning/late afternoon sunlight (15-30 mins) helps Vitamin D synthesis." },
-                    { heading: "Rest and Sleep", text: "Adequate rest and quality sleep are vital. Avoid sleeping immediately after meals." },
-                    { heading: "Avoid Harmful Substances", text: "Complete avoidance of alcohol and tobacco (including passive smoking)." },
-                    { heading: "Manage Stress", text: "Practice relaxation techniques like meditation or light prenatal yoga." },
-                    { heading: "Regular Medical Check-ups", text: "Attend all antenatal appointments for monitoring and advice." }
-                ]
-            }
+        // --- CONFIGURATION ---
+        // Updated Start Date. Today is Day 114.
+        // Start Date (Day 1) = Today's Date - 113 days
+        const pregnancyStartDate = new Date();
+        pregnancyStartDate.setDate(pregnancyStartDate.getDate() - 113);
+
+
+        // --- ASALAINDI, POORTHIGA NIMPINA WEEKLY MESSAGES LIBRARY ---
+        const weeklyMessages = {
+            5: ["Amma, nenu ippudu chala chinnaga, oka sesam ginja antha unnanu!", "Naa heart ippude start ayyindi, 'dhak dhak' ani!", "Adhi nee kosame, Amma, naa first sound!", "Naaku brain, spinal cord lanti pedda pedda parts form avuthunnai.", "Full busy ga unnanu lona, building mode on!", "Nuvvu em tinaalo adhi tinu, naaku energy kaavali.", "Nuvvu happy ga unte nenu inka baaga perugutha.", "Nanna ki cheppu, nenu vachesaanu ani.", "Ikkada chala safe ga undi Amma.", "Naa chinni body lo blood circulation start ayyindi.", "Nenu ippudu oka 'embryo' ni.", "Nee gurinche alochistunna.", "I love you Amma.", "Nuvvu jaagrathaga undu.", "Rest baaga teesuko.", "Naa kosam oka paata paadu.", "Nenu nee lo oka bhagam.", "Mana journey ippude modalaindi.", "Nee preme naaku balam.", "Nanna, Amma ni jaagrathaga chusuko.", "Nenu roju roju ki perugutunna.", "Naa size inka chala chinnadi.", "Nee gunde chappudu naaku telusthondi.", "Mana bandham chala special.", "Nenu mee iddari bangaram.", "Thank you for everything, Amma.", "Naaku lona chala pani undi.", "Mee iddarini kalavadaniki waiting.", "Nenu mee chinni Mango.", "Good night, Amma."],
+            6: ["Amma! Nenu ippudu oka linja ginja antha unnanu.", "Naa kallu, mukku, chevulu ippude start avuthunnai.", "Cute ga tayaravutunna, nee kosame!", "Naa heart beat inka strong ayyindi.", "Hi Nanna! Nuvvu amma tho matladuthunte naaku telusthondi.", "Naa chinni chethulu, kaallu ippude vachayi.", "Nenu lona chinna chinna movements chesthunna.", "Nuvvu paalu baaga taagu, naaku balam vasthundi.", "Naa liver form avuthondi.", "Nenu lona chala active ga unnanu.", "Nee potta naa kingdom.", "Amma, nuvvu navvithe naaku chala ishtam.", "Nanna, naatho kuda matladu.", "Nee voice ki nenu respond avtha.", "Nenu mee andamaina Mango.", "Eeroju em tinnave Amma?", "Naaku nee daggara chala comfortable ga undi.", "Nee prema naaku raksha.", "Mee iddarini chudalani undi.", "Nenu healthy ga unnanu, tension padaku.", "Nee paatalu nannu nidra puchuthunnai.", "Nenu roju perugutunna.", "Nee alochanalu naaku telusthunnai.", "Mana iddari connection chala deep.", "Nenu mee adrushtam.", "Love you both.", "Nanna, Amma ki help cheyyi.", "Nenu mee anandam.", "Naa kosam wait cheyyandi.", "Sweet dreams, Amma."],
+            7: ["Hello Amma! Nenu blueberry antha ayyanu!", "Naa chinni chethulu, kaallu ippude oosthunnai. Bhale undi!", "Eeroju naa liver blood cells ni tayaru cheyyadam start chesindi.", "Lona chala pani jaruguthondi!", "Nenu ippudu inka fast ga perugutunna.", "Naa brain cells super fast ga perugutunnai.", "Nenu ippudu thinking chesthunna anuko!", "Nanna, nuvvu amma ki emaina help chestunnava?", "Amma, nuvvu water baaga taagu.", "Nenu lona swimming chesthunna anuko.", "Naa kidneys kuda form ayyay.", "Naa chinni moham ippude tayaravuthondi.", "Nenu mee iddari laaga untana?", "Nenu mee chinni 'bujji' ni.", "Nee gontu vintunte chala happy ga undi.", "Nenu mee jeevitham lo ki velugu tecchadaniki vastunna.", "Nuvvu emaina cravings unte cheppu, Nanna ki chepdam.", "Naa kosam emaina shopping chesara?", "Nenu mee iddari prapancham.", "Nee potta ippudu naa illu.", "Nenu mee bangaru konda.", "Love you to the moon and back.", "Nanna, amma ni rani laaga chusuko.", "Nenu mee chinni paapa/baabu.", "Nenu mee antha adrushtam.", "Naa kosam aalochinchaku, nenu safe ga unnanu.", "Nuvvu matrame mukhyam, Amma.", "Nenu mee andamaina kala.", "Nee prema naaku oxygen.", "Good night, my sweet Amma."],
+            8: ["Amma! Nenu ippudu oka kidney bean antha unnanu.", "Naa chethi vellu, kaali vellu ippude vidadisthunnai.", "Hi-five ivvadaniki practice chesthunna!", "Nenu lona konchem move avuthunna, kaani neeku inka teliyadu.", "Adi mana secret!", "Naa tail (thoka) ippudu poyindi.", "Nenu ippudu inka manishi laaga unnanu.", "Naa taste buds develop avuthunnai.", "Nuvvu em tinte adi naaku telusthundi.", "Spicy ga emaina tinaku, please!", "Nenu mee muddu la Mango.", "Nanna, nuvvu amma ki stories cheppu.", "Nenu lona vintu unta.", "Nee gunde chappudu naaku lullaby laaga undi.", "Nenu mee iddari madhya unna prema ki prateekam.", "Nenu mee santhosham.", "Nenu mee aanandam.", "Nenu mee sarvam.", "Nenu mee jeevitham.", "Nenu mee prapancham.", "Nenu mee bangaram.", "Nenu mee muthyam.", "Nenu mee vajram.", "Nenu mee rathnam.", "Nenu mee nidhi.", "Nenu mee adrushtam.", "Nenu mee aishwaryam.", "Nenu mee anugraham.", "Nenu mee ashirvadam.", "Nenu mee deevena."],
+            9: ["Nenu ippudu official ga 'fetus' ni amma!", "Oka grape antha unnanu.", "Naa chinni chethulatho fist cheyagalanu!", "Naa organs anni form aipoyay, ippudu avi peruguthai.", "Nenu peruguthunna, nuvvu baaga tinu mari!", "Naa heart ippudu 4 chambers tho undi.", "Perfect ga pani chesthondi, nee kosam.", "Naa eyelids ippudu moosukuni unnayi.", "Naa kallu develop avuthunnai.", "Bayata prapanchanni choodataniki waiting.", "Nenu mee chinni devatha/devudu.", "Nanna, nuvvu amma ki massage cheyyi.", "Amma ki chala relaxing ga untundi.", "Nenu mee iddari prema katha lo oka andamaina chapter.", "Nenu mee jeevitham lo oka kottha adhyayam.", "Nenu mee santhosham lo oka chinni bhagam.", "Nenu mee aanandam lo oka pedda karanam.", "Nenu mee prapancham lo oka chinni nakshatram.", "Nenu mee aakasham lo oka andamaina chandamama.", "Nenu mee thota lo oka vichitramaina pushpam.", "Nenu mee samudhram lo oka വിലuvaina muthyam.", "Nenu mee kondallo oka goppa vajram.", "Nenu mee adavi lo oka aparoopamaina rathnam.", "Nenu mee intlo oka chinni deepam.", "Nenu mee jeevitham lo oka pedda velugu.", "Nenu mee santhosham ki oka chinni dwaram.", "Nenu mee aanandam ki oka pedda margam.", "Nenu mee prema ki oka chinni gurtu.", "Nenu mee jeevitham ki oka pedda ardham."],
+            10: ["Amma, nenu ippudu oka kumquat antha unnanu.", "Naa bones and cartilage form avuthunnai.", "Strong avuthunna!", "Naa chinni chinni tooth buds gums lona form avuthunnai.", "Vachaka baaga navvutha!", "Naa kidneys ippudu urine produce chesthunnai.", "Nenu lona chala busy ga unnanu.", "Naa brain chala fast ga develop avuthondi.", "Nenu ippudu inka teliviga avuthunna.", "Nanna, nuvvu amma tho jokes veyyi.", "Amma navvithe nenu happy.", "Nenu mee iddari madhya unna chinni bridge.", "Nenu mee prema ki sakshi.", "Nenu mee santhosham ki karanam.", "Nenu mee aanandam ki moolam.", "Nenu mee prapancham ki kendram.", "Nenu mee aakasham lo dhruva tara.", "Nenu mee thota lo sugandha pushpam.", "Nenu mee samudhram lo amoolyamaina muthyam.", "Nenu mee kondallo prakasamaina vajram.", "Nenu mee adavi lo viluvaina rathnam.", "Nenu mee intlo velugunu nimpe deepam.", "Nenu mee jeevitham lo dishanu soochinche velugu.", "Nenu mee santhosham ki teruchukune dwaram.", "Nenu mee aanandam ki cherche margam.", "Nenu mee prema ki prathibimbam.", "Nenu mee jeevitham ki saarthakatha.", "Nenu mee andamaina swapnam.", "Nenu mee sweet memory.", "Nenu mee beautiful reality."],
+            11: ["Hello Amma! Nenu ippudu oka fig (anjeer) antha unnanu.", "Nenu ippudu strech cheyagalanu, kick cheyagalanu.", "Full active!", "Naa reproductive organs kuda form avuthunnai.", "Nenu ammayo, abbayo inka suspense ye!", "Naa hair follicles form avuthunnai.", "Naaku juttu kuda vasthondi!", "Naa fingernail beds form avuthunnai.", "Naa vellu inka andamga avuthunnai.", "Nenu mee chinni rajakumari/rajakumarudu.", "Nanna, nuvvu amma ki ishtamaina food chesi pettu.", "Amma happy, nenu happy.", "Nenu mee iddari prema phalam.", "Nenu mee santhosham ki prathiroopam.", "Nenu mee aanandam ki nidarshanam.", "Nenu mee prapancham ki artham.", "Nenu mee aakasham lo merise tara.", "Nenu mee thota lo vikasinchina pushpam.", "Nenu mee samudhram lo dorikina muthyam.", "Nenu mee kondallo veligina vajram.", "Nenu mee adavi lo labhinchina rathnam.", "Nenu mee intlo velige jyothi.", "Nenu mee jeevitham lo margadarshi.", "Nenu mee santhosham ki dwarapalaki.", "Nenu mee aanandam ki rahadari.", "Nenu mee prema ki chihnam.", "Nenu mee jeevitham ki gamyam.", "Nenu mee kanula velugu.", "Nenu mee gunde chappudu.", "Nenu mee praanam."],
+            12: ["Nenu ippudu oka lime (nimmakaya) antha unnanu!", "Naa chinni reflexes start ayyay.", "Naa vellu moosukunta, kaallu curl chesta!", "Naa face ippudu inka manishi laaga kanipisthondi.", "Mee Mango cute ye kada?", "Naa intestines potta loki move avuthunnai.", "Anni sarigga set avuthunnai.", "Naa pituitary gland hormones produce chesthondi.", "Nenu lona chala balanced ga unnanu.", "Nanna, nuvvu amma ki paatalu paadi vinipinchu.", "Nenu kuda vintu unta.", "Nenu mee iddari prema kavithvam.", "Nenu mee santhosham ki sangeetham.", "Nenu mee aanandam ki natyam.", "Nenu mee prapancham ki chithram.", "Nenu mee aakasham lo indradhanassu.", "Nenu mee thota lo parimalam.", "Nenu mee samudhram lo alajadi.", "Nenu mee kondallo prathidhwani.", "Nenu mee adavi lo chinni praani.", "Nenu mee intlo chinni allari.", "Nenu mee jeevitham lo chinni maaya.", "Nenu mee santhosham ki chinni karanam.", "Nenu mee aanandam ki pedda utsavam.", "Nenu mee prema ki goppa gurtu.", "Nenu mee jeevitham ki andamaina malupu.", "Nenu mee pedavula pai chirunavvu.", "Nenu mee kanula loni merupu.", "Nenu mee hrudayam loni spandana.", "Nenu mee oohalaku andani andam."],
+            13: ["Amma! Nenu ippudu oka green pea pod antha unnanu.", "Naaku naa own unique fingerprints vachesay!", "Nenu entha special o choodu!", "Second trimester ki welcome Amma!", "Ippati nunchi nenu inka fast ga perugutha!", "Naa vocal cords form avuthunnai.", "Bayataki vachaka full ga arustha!", "Naa bones inka hard avuthunnai.", "Nenu inka strong avuthunna.", "Nenu mee chinni yodhudu/yodhurani.", "Nanna, nuvvu amma ni shopping ki teesukellu.", "Naa kosam emaina konandi.", "Nenu mee iddari aasha.", "Nenu mee santhosham ki bhasha.", "Nenu mee aanandam ki disha.", "Nenu mee prapancham ki shobha.", "Nenu mee aakasham lo suryudu.", "Nenu mee thota lo thene.", "Nenu mee samudhram lo nadhi.", "Nenu mee kondallo shilpam.", "Nenu mee adavi lo oushadham.", "Nenu mee intlo panduga.", "Nenu mee jeevitham lo vijayam.", "Nenu mee santhosham ki aahvanam.", "Nenu mee aanandam ki aarambham.", "Nenu mee prema ki parimalam.", "Nenu mee jeevitham ki paramardham.", "Nenu mee kalala raju/rani.", "Nenu mee nijamaina anubhuthi.", "Nenu mee andanaina adbhutham."],
+            14: ["Nenu ippudu oka lemon antha unnanu!", "Nenu ippudu frown, squint, grimace lanti expressions ivvagalanu.", "Lona acting practice chesthunna!", "Naa neck inka long ayyindi, chin kindaki vachindi.", "Smart ga tayaravutunna!", "Naa body meeda lanugo ane soft hair peruguthondi.", "Adhi nannu warm ga unchuthundi.", "Naa liver bile produce chesthondi.", "Naa spleen red blood cells ni tayaru chesthondi.", "Anni systems perfect ga work chesthunnai.", "Nenu mee chinni scientist.", "Nanna, nuvvu amma ki flowers ivvu.", "Amma chala happy ga feel avuthundi.", "Nenu mee iddari swapnam.", "Nenu mee santhosham ki swardham.", "Nenu mee aanandam ki aadharam.", "Nenu mee prapancham ki prabhavam.", "Nenu mee aakasham lo megham.", "Nenu mee thota lo phalam.", "Nenu mee samudhram lo prabhavam.", "Nenu mee kondallo shabdam.", "Nenu mee adavi lo anveshana.", "Nenu mee intlo aathmeeyatha.", "Nenu mee jeevitham lo anubandham.", "Nenu mee santhosham ki sanchalanam.", "Nenu mee aanandam ki aalambana.", "Nenu mee prema ki pramanam.", "Nenu mee jeevitham ki anugraham.", "Nenu mee andamaina bhavishyathu.", "Nenu mee varthamanam lo varam."],
+            15: ["Amma, nenu ippudu oka apple antha unnanu!", "Naa kallu ippudu light ni sense cheyagalavu.", "Bayata veluthuru unte naaku telusthundi!", "Nenu ippudu amniotic fluid ni swallow chesthunna, breathing practice kosam!", "Naa leg bones arm bones kante long ayyay.", "Nenu ippudu correct proportions lo unnanu.", "Naa scalp meeda hair pattern form avuthondi.", "Naa juttu ela untundo oohinchuko!", "Nenu mee chinni model.", "Nanna, nuvvu amma tho dance cheyyi.", "Nenu lona feel avutanu.", "Nenu mee iddari prema deepam.", "Nenu mee santhosham ki roopam.", "Nenu mee aanandam ki gaanam.", "Nenu mee prapancham ki praanam.", "Nenu mee aakasham lo velluva.", "Nenu mee thota lo virajaaji.", "Nenu mee samudhram lo keratam.", "Nenu mee kondallo aruvi.", "Nenu mee adavi lo parugu.", "Nenu mee intlo anuragam.", "Nenu mee jeevitham lo aalapana.", "Nenu mee santhosham ki sanketham.", "Nenu mee aanandam ki sandesham.", "Nenu mee prema ki prathiphalam.", "Nenu mee jeevitham ki saaphalyam.", "Nenu mee andamaina alochana.", "Nenu mee madhuramaina anubhavam.", "Nenu mee goppa adbhutam.", "Nenu mee chinni prapancham."],
+            16: ["Nenu ippudu oka avocado antha unnanu!", "Naa gunde roju ki 24 litres blood pump chesthondi.", "Chala kashtapaduthondi nee kosam!", "Naa kaalla meeda toenails kuda start ayyay.", "Head to toe ready avuthunna!", "Naa eyes ippudu side to side move avuthunnai.", "Lona antha chusthunna.", "Naa ears final position ki vachesai.", "Ippudu inka baaga vinagalanu.", "Nenu mee chinni listener.", "Nanna, nuvvu amma ki love letter raayi.", "Amma chala special ga feel avuthundi.", "Nenu mee iddari prema bandham.", "Nenu mee santhosham ki anubandham.", "Nenu mee aanandam ki sambandham.", "Nenu mee prapancham ki anugraham.", "Nenu mee aakasham lo chinuku.", "Nenu mee thota lo malle.", "Nenu mee samudhram lo shanku.", "Nenu mee kondallo guha.", "Nenu mee adavi lo jinka.", "Nenu mee intlo mamakaram.", "Nenu mee jeevitham lo madhuram.", "Nenu mee santhosham ki spandana.", "Nenu mee aanandam ki anukampa.", "Nenu mee prema ki parimala.", "Nenu mee jeevitham ki saubhagyam.", "Nenu mee oohala sundari/sundarudu.", "Nenu mee nijamaina soundaryam.", "Nenu mee andanaina anugraham."],
+            17: ["Amma! Nenu ippudu oka perikaya (pear) antha unnanu!", "Naa skeleton ippudu rubber laaga ledu, strong bone ga tayaravuthondi.", "Nenu konchem chubby ga avuthunnanu amma! Bayataki vachaka nannu gattiga hug chesukovadaniki ready avuthunna.", "Nanna ki cheppu, mee Mango ippudu inka strong avuthondi ani!", "Nee gunde chappudu naaku rojantha vinipisthune untundi. Adi naa favorite song.", "Naaku ippudu hiccups (vekkillu) kuda vasthunnai telusa? Lopala antha 'tik tik' mani sound vasthundi.", "Nuvvu paatalu paaduthunte nenu lona vintu enjoy chesthunna. Keep singing Amma!", "Eeroju em tinnave? Naaku full energy vachesindi!", "Naa chinni fingers meeda unique fingerprints form avuthunnai! Nenu entha special o choodu.", "Lona konchem sucking practice chesthunna. Vachaka paalu baaga taagali kada!", "Amma, 'I love you'. Ee maata cheppadanike kada mee Mango vachesthunna.", "Nuvvu tension padaku amma, nenu ikkada safe ga, happy ga unnanu.", "Bayata light veluthuru konchem konchem telusthundi. Naa kallu ippudu move avuthunnai.", "Nuvvu nadusthunte naaku ooyala ooginattu undi. Bhale joruga undi.", "Nanna, nuvvu amma potta deggara matladu. Nee voice nenu gurthu padutunna!", "Nee navvu sound ki nenu lona respond avuthunna telusa?", "Naa bones strong avvadaniki nuvvu paalu, perugu baaga teesuko Amma.", "Mee iddari maatalu vintunte naaku chala happy ga undi.", "Naakosam emaina peru anukunnara? 'Mango' bagundi kaani, inka options unte cheppandi!", "Lona chala warm ga, cozy ga undi. World's best place ide!", "Nee potta meeda cheyyi petti rub cheyyi Amma, naaku telusthundi.", "Inka konni nelale... appudu roju nee daggarane unta. Waiting amma!", "Naa kosam shopping chesthunnara? Naaku anni soft soft ga unde battalu konandi.", "Eeroju naa size oka turnip antha undochu!", "Naa kaalla meeda toenails kuda start ayyay. Head to toe ready avuthunna!", "Thank you Amma, nannu intha jaagrathaga chusukuntunnanduku.", "Nanna, Amma ni happy ga chusuko. Appude nenu kuda happy ga unta.", "Naa heart roju ki 24 litres blood pump chesthondi. Antha nee kosame!", "Eeroju konchem ekkuva sepu nidra poya. Full rest teesukunna.", "Good night Amma, good night Nanna. Sweet dreams from your Mango!"],
+            18: ["Amma! Nenu ippudu oka bell pepper antha unnanu!", "Naa nervous system super fast ga mature avuthondi.", "Myelin ane special coating valla naa brain signals fast ga velthunnai.", "Nenu ippudu inka smart avuthunna, nee kosame!", "Nee gontu inka clear ga vinipisthondi.", "Nanna paata kuda vintunna, full bass tho!", "Meeridharu naakosam oka duet paadandi please!", "Eeroju lona konchem gattiga thanna. Neeku 'gas' la anipinchinda?", "Adi gas kaadu, nene, mee Mango!", "Nenu ippudu yawn (aavalintha) cheyagalanu!", "Practice chesthunna, bayataki vachaka full nidra povali kada!", "Nanna, nuvvu amma potta deggara matladu. Nee deep voice ki nenu respond avuthunna!", "Naa chinni chethulatho naa mukku, noti ni touch chesukuntunna.", "Naa face ni explore chesthunna, chala interesting ga undi.", "Nenu ippudu bayata sounds ki jump avvagalanu!", "Sudden ga pedda sound vasthe choodu, lona nunchi response istha!", "Nee heartbeat naaku chala comforting ga undi.", "Nenu nee lona unnanu, nuvvu naa lona unnavu.", "Mana iddari madhya ee connection super strong.", "Amma, nuvvu happy ga unte nene happy.", "Nuvvu emaina spicy ga tinte naaku telusthonda?", "Taste buds develop avuthunnai.", "Nenu mee iddari செல்லம்.", "Naa movements ni gamanisthunnava?", "Inka konni rojullo inka strong ga thanutha.", "Nenu mee chinni kick-boxer ni.", "I love you to the moon and back, Amma.", "Nanna, nuvvu kuda I love you cheppu.", "Mee iddari prema lo perugutunna.", "Nenu chala adrushtavanthudini/adhrushtavanthuralini."],
+            19: ["Amma, nenu ippudu oka mamidi pandu antha unnanu! Correct peru pettaru ga naaku!", "Naa skin ni protect cheyyadaniki 'vernix' ane oka waxy layer form avuthondi.", "Nenu lona chala safe ga, protected ga unnanu.", "Naa brain lo sensory areas develop avuthunnai.", "Touch, taste, smell, sight, hearing... anni ready avuthunnai.", "Nenu mee chinni explorer ni.", "Nuvvu emaina sweet ga tinte naaku full ishtam.", "Naaku lona chinni party laaga untundi.", "Nenu ippudu inka ekkuva move avuthunna.", "Neeku naa kicks telusthunnaya, Amma?", "Adi nenu 'Hi' cheppinattu.", "Nanna, nuvvu amma potta meeda kiss pettu.", "Naaku telusthundi.", "Nenu mee iddari santhosham.", "Naa kosam emaina paatalu select chesara?", "Nenu lona vintu unta.", "Nee voice naaku gurthu undipothundi.", "Bayataki vachaka nee voice vinagane navvutha.", "Nenu mee andamaina anubhavam.", "Nee prema naaku amrutham.", "Nenu mee jeevitham lo oka kottha rangam.", "Nenu mee santhosham ki saakshyam.", "Nenu mee aanandam ki aadharam.", "Nenu mee prapancham ki prathibimbam.", "Nenu mee aakasham lo velugu.", "Nenu mee thota lo thene jallu.", "Nenu mee samudhram lo aanimuthyam.", "Nenu mee kondallo amoolyamaina shila.", "Nenu mee adavi lo andamaina nemali.", "Nenu mee intlo velagaboye deepam."],
+            20: ["Half way done, Amma! Nenu ippudu oka chinni arati pandu antha podavu unnanu.", "Nenu ippudu regular ga nidra pothunna, legusthunna.", "Naaku oka schedule undi ippudu.", "Nenu ippudu amniotic fluid ni baaga swallow chesthunna.", "Adhi naa digestive system ki manchi practice.", "Naa meconium (first stool) form avuthondi.", "Naa skin inka thick avuthondi.", "Nenu inka strong ga tayaravutunna.", "Nenu mee chinni soldier ni.", "Nanna, nuvvu amma ki emaina gift konnava?", "Ee milestone ni celebrate cheyyandi.", "Nenu mee iddari prema vijayam.", "Nenu mee santhosham ki sanketham.", "Nenu mee aanandam ki aalapana.", "Nenu mee prapancham ki pranam.", "Nenu mee aakasham lo purnima chandrudu.", "Nenu mee thota lo vikasinchina roja.", "Nenu mee samudhram lo shanthamaina alaa.", "Nenu mee kondallo goppa shikharam.", "Nenu mee adavi lo swetchaga tirige puli.", "Nenu mee intlo aathmeeyatha.", "Nenu mee jeevitham lo anubandham.", "Nenu mee santhosham ki spruha.", "Nenu mee aanandam ki aasha.", "Nenu mee prema ki bhasha.", "Nenu mee jeevitham ki disha.", "Nenu mee andamaina kavitha.", "Nenu mee madhuramaina paata.", "Nenu mee goppa natakam.", "Nenu mee chinni cinema."],
+            21: ["Nenu ippudu oka pedda carrot antha unnanu!", "Naa eyebrows, eyelashes kuda vachesai.", "Full andamga tayaravutunna!", "Naa taste buds inka baaga develop ayyay.", "Nuvvu em tinte aa taste naaku telusthundi.", "Garlic tinte nenu face chidmiristha emo!", "Nenu mee chinni foodie ni.", "Nanna, nuvvu amma ni dinner ki teesukellu.", "Meeru happy ga unte nenu happy.", "Nenu mee iddari prema chitram.", "Nenu mee santhosham ki shilpam.", "Nenu mee aanandam ki kavithvam.", "Nenu mee prapancham ki sangeetham.", "Nenu mee aakasham lo varsham.", "Nenu mee thota lo pandu.", "Nenu mee samudhram lo isuka.", "Nenu mee kondallo raayi.", "Nenu mee adavi lo chettu.", "Nenu mee intlo manishi.", "Nenu mee jeevitham lo sneham.", "Nenu mee santhosham ki chirunama.", "Nenu mee aanandam ki aaradhana.", "Nenu mee prema ki parichayam.", "Nenu mee jeevitham ki paripurthi.", "Nenu mee andamaina aalochana.", "Nenu mee madhuramaina gnapakalam.", "Nenu mee goppa anubhavam.", "Nenu mee chinni prapancham lo pedda vishayam."],
+            22: ["Amma, nenu ippudu oka spaghetti squash antha unnanu.", "Naa taste buds develop ayyay. Nuvvu tine flavours anni naaku telusthunnai!", "Nanna, nuvvu amma potta deggara matladu. Nee voice nenu gurthu padutunna!", "Naa lips, eyebrows inka clear ga kanipisthunnai.", "Nenu ippudu oka chinni baby laaga unnanu.", "Naa eyes form ayyay, kaani iris ki inka color ledu.", "Naa kallu em color untayo guess cheyyandi!", "Nenu mee chinni mystery.", "Nanna, nuvvu amma ki help cheyyi.", "Amma ki ippudu rest avasaram.", "Nenu mee iddari prema kavyam.", "Nenu mee santhosham ki bhaavam.", "Nenu mee aanandam ki raagam.", "Nenu mee prapancham ki thalam.", "Nenu mee aakasham lo vayu mandalam.", "Nenu mee thota lo gaali.", "Nenu mee samudhram lo uppu.", "Nenu mee kondallo neeru.", "Nenu mee adavi lo nippu.", "Nenu mee intlo prashanthatha.", "Nenu mee jeevitham lo sthirathvam.", "Nenu mee santhosham ki utsaham.", "Nenu mee aanandam ki ullasam.", "Nenu mee prema ki prathiphalam.", "Nenu mee jeevitham ki saubhagyam.", "Nenu mee oohalaku andani andagadu/andagatte.", "Nenu mee nijamaina santhosham.", "Nenu mee andanaina adrushtam."],
+            23: ["Nenu ippudu oka pedda grapefruit antha unnanu.", "Nenu bayata sounds ki lona jump avvagalanu.", "Sudden ga pedda sound vasthe choodu!", "Naa lungs develop avuthunnai, breathing practice chesthunna.", "Naa skin inka pink ga, translucent ga undi.", "Naa blood vessels anni kanipisthunnai.", "Nenu mee chinni transparent baby ni!", "Nanna, nuvvu amma ki emaina surprise ivvu.", "Amma ni eppudu santhosham ga unchu.", "Nenu mee iddari prema geetham.", "Nenu mee santhosham ki artham.", "Nenu mee aanandam ki paramartham.", "Nenu mee prapancham ki sarvaswam.", "Nenu mee aakasham lo grahanam.", "Nenu mee thota lo viraham.", "Nenu mee samudhram lo sunami.", "Nenu mee kondallo bhukampam.", "Nenu mee adavi lo davanalalam.", "Nenu mee intlo kalaham.", "Nenu mee jeevitham lo viramam.", "Nenu mee santhosham ki samaram.", "Nenu mee aanandam ki nirnayam.", "Nenu mee prema ki pariksha.", "Nenu mee jeevitham ki sahasam.", "Nenu mee andamaina apayam.", "Nenu mee madhuramaina anartham.", "Nenu mee goppa pramadham.", "Nenu mee chinni prapancham lo pedda tufan."],
+            24: ["Amma, nenu ippudu oka makkajonna kankee antha podavu unnanu!", "Naa face ippudu poorthiga form aipoindi.", "Nee gunde chappudu naaku rojantha vinipisthune untundi.", "Adi naa favorite song. Love you Amma, from your Mango.", "Nenu ippudu 'viable' stage ki vachanu.", "Ante, bayata kuda survive avvagalanu, with help.", "Kaani nenu inka nee potta lone unta, don't worry.", "Nenu mee chinni survivor ni.", "Nanna, nuvvu amma tho kalisi walk cheyyi.", "Meeru idharu kalisi unte naaku chala ishtam.", "Nenu mee iddari prema bandham.", "Nenu mee santhosham ki anubandham.", "Nenu mee aanandam ki sambandham.", "Nenu mee prapancham ki anugraham.", "Nenu mee aakasham lo chinuku.", "Nenu mee thota lo malle.", "Nenu mee samudhram lo shanku.", "Nenu mee kondallo guha.", "Nenu mee adavi lo jinka.", "Nenu mee intlo mamakaram.", "Nenu mee jeevitham lo madhuram.", "Nenu mee santhosham ki spandana.", "Nenu mee aanandam ki anukampa.", "Nenu mee prema ki parimala.", "Nenu mee jeevitham ki saubhagyam.", "Nenu mee oohala sundari/sundarudu.", "Nenu mee nijamaina soundaryam.", "Nenu mee andanaina anugraham."],
+            25: ["Nenu ippudu oka cauliflower antha unnanu.", "Naa hair kuda peruguthondi, color kuda decide aipoindi!", "Nenu naa chethulatho naa kaallani pattukogalanu.", "Lona yoga chesthunna anuko!", "Naa nostrils open ayyay.", "Nenu ippudu breathing practice chesthunna.", "Naa hands ippudu fully developed.", "Nenu naa chethulatho aadukuntunna.", "Nenu mee chinni player ni.", "Nanna, nuvvu amma ki ishtamaina cinema chupinchu.", "Amma relax avvali.", "Nenu mee iddari prema katha.", "Nenu mee santhosham ki gaadha.", "Nenu mee aanandam ki vedha.", "Nenu mee prapancham ki shradha.", "Nenu mee aakasham lo vidyuth.", "Nenu mee thota lo maruvam.", "Nenu mee samudhram lo muthyam.", "Nenu mee kondallo kanakam.", "Nenu mee adavi lo anandam.", "Nenu mee intlo aapyayatha.", "Nenu mee jeevitham lo aathmeeyatha.", "Nenu mee santhosham ki sahavasam.", "Nenu mee aanandam ki sallaapam.", "Nenu mee prema ki prathibha.", "Nenu mee jeevitham ki saarthakatha.", "Nenu mee andamaina uhalaku roopam.", "Nenu mee madhuramaina gnapakam.", "Nenu mee goppa anubhavam."],
+            26: ["Amma, nenu ippudu oka red cabbage antha unnanu.", "Nenu ippudu kallu terichi moosthunna!", "Bayata world ni choodataniki practice chesthunna.", "Nee voice ki nenu respond avutanu.", "Nuvvu matladuthunte naa heart rate peruguthundi!", "Naa brain waves ippudu hearing and sight ki respond avuthai.", "Nenu ippudu inka aware ga unnanu.", "Nenu mee chinni genius ni.", "Nanna, nuvvu amma ki head massage cheyyi.", "Amma ki chala relieving ga untundi.", "Nenu mee iddari prema deepthi.", "Nenu mee santhosham ki kranthi.", "Nenu mee aanandam ki shanthi.", "Nenu mee prapancham ki khyathi.", "Nenu mee aakasham lo jabili.", "Nenu mee thota lo gulabi.", "Nenu mee samudhram lo saubhagyam.", "Nenu mee kondallo keerthi.", "Nenu mee adavi lo adrushtam.", "Nenu mee intlo aishwaryam.", "Nenu mee jeevitham lo anugraham.", "Nenu mee santhosham ki spoorthi.", "Nenu mee aanandam ki aasakthi.", "Nenu mee prema ki prathishta.", "Nenu mee jeevitham ki paripurthi.", "Nenu mee andamaina aakruthi.", "Nenu mee madhuramaina smruthi.", "Nenu mee goppa sthithi."],
+            27: ["Third trimester ki welcome! Nenu ippudu oka pedda lettuce antha unnanu.", "Naa brain chala active ga undi.", "Naaku ippudu hiccups (vekkillu) regular ga vasthunnai.", "Neeku potta lo 'tik tik' ani telusthunda?", "Naa lungs inka mature avuthunnai.", "Nenu ippudu surfactant ane substance ni produce chesthunna.", "Adi nenu breath cheyyadaniki help chesthundi.", "Nenu mee chinni doctor ni.", "Nanna, nuvvu amma ki healthy food chesi pettu.", "Amma health chala mukhyam.", "Nenu mee iddari prema prabhavam.", "Nenu mee santhosham ki swabhavam.", "Nenu mee aanandam ki anubhavam.", "Nenu mee prapancham ki vaibhavam.", "Nenu mee aakasham lo prabhatam.", "Nenu mee thota lo vasantham.", "Nenu mee samudhram lo sangamam.", "Nenu mee kondallo kolahalam.", "Nenu mee adavi lo aanandam.", "Nenu mee intlo utsavam.", "Nenu mee jeevitham lo parimalam.", "Nenu mee santhosham ki sankalpam.", "Nenu mee aanandam ki sandarbham.", "Nenu mee prema ki prathibimbam.", "Nenu mee jeevitham ki saaphalyam.", "Nenu mee andamaina aalochana.", "Nenu mee madhuramaina anubhuti.", "Nenu mee goppa adbhutam."],
+            28: ["Nenu ippudu oka pedda vankaya antha unnanu!", "Nenu ippudu dreams kanagalanu anta!", "Nee gurinche naaku dreams vasthunnai.", "Naa kallu ippudu tears produce cheyagalavu.", "Kaani nenu eppudu edavanu le, nuvvu unnav ga!", "Naa body fat peruguthondi.", "Nenu ippudu chubby chubby ga avuthunna.", "Nenu mee chinni teddy bear ni.", "Nanna, nuvvu amma ni ekkuva sepu nilabada nivvaku.", "Amma kaallu noppi ga untai.", "Nenu mee iddari prema parimalam.", "Nenu mee santhosham ki sarigama.", "Nenu mee aanandam ki pallavi.", "Nenu mee prapancham ki charanam.", "Nenu mee aakasham lo taaraka.", "Nenu mee thota lo chilaka.", "Nenu mee samudhram lo padava.", "Nenu mee kondallo daruvu.", "Nenu mee adavi lo aaruvu.", "Nenu mee intlo velugu.", "Nenu mee jeevitham lo gelupu.", "Nenu mee santhosham ki talupu.", "Nenu mee aanandam ki pilupu.", "Nenu mee prema ki malupu.", "Nenu mee jeevitham ki kolupu.", "Nenu mee andamaina roopam.", "Nenu mee madhuramaina sneham.", "Nenu mee goppa bandham."],
+            29: ["Amma, nenu ippudu oka butternut squash antha unnanu.", "Naa muscles, lungs inka mature avuthunnai.", "Naaku lona space thagguthondi, anduke naa kicks inka strong ga untai.", "Sorry Amma!", "Naa head inka peruguthondi.", "Naa brain ki chala space kavali.", "Nenu mee chinni intellectual ni.", "Nanna, nuvvu amma ki kaallu pattu.", "Amma ki chala haayiga untundi.", "Nenu mee iddari prema prathiphalam.", "Nenu mee santhosham ki sangeetham.", "Nenu mee aanandam ki sahityam.", "Nenu mee prapancham ki samrajyam.", "Nenu mee aakasham lo vimaanam.", "Nenu mee thota lo yaagam.", "Nenu mee samudhram lo aayamam.", "Nenu mee kondallo aaramam.", "Nenu mee adavi lo vyaayamam.", "Nenu mee intlo aalayam.", "Nenu mee jeevitham lo adhyayam.", "Nenu mee santhosham ki saadhyam.", "Nenu mee aanandam ki saameepyam.", "Nenu mee prema ki prathishta.", "Nenu mee jeevitham ki paripurthi.", "Nenu mee andamaina srushti.", "Nenu mee madhuramaina drushti.", "Nenu mee goppa pushti."],
+            30: ["Nenu ippudu oka pedda cabbage antha unnanu.", "Naa bones anni develop aipoyay, kaani naa skull inka soft ga undi, delivery kosam.", "Bayata light ki naa pupils react avuthai.", "Veluthuru unte chinnaga, cheekati unte peddaga avuthai!", "Naa bone marrow ippudu red blood cells ni tayaru chesthondi.", "Nenu ippudu self-sufficient avuthunna.", "Nenu mee chinni independent baby ni.", "Nanna, nuvvu amma ki ishtamaina paatalu pettu.", "Music nannu calm ga unchuthundi.", "Nenu mee iddari prema saakshi.", "Nenu mee santhosham ki shikaram.", "Nenu mee aanandam ki aadharam.", "Nenu mee prapancham ki saaram.", "Nenu mee aakasham lo aakaram.", "Nenu mee thota lo aaharam.", "Nenu mee samudhram lo aalayam.", "Nenu mee kondallo aayudham.", "Nenu mee adavi lo aathram.", "Nenu mee intlo aadaram.", "Nenu mee jeevitham lo aacharam.", "Nenu mee santhosham ki sahakaram.", "Nenu mee aanandam ki satkaram.", "Nenu mee prema ki pracharam.", "Nenu mee jeevitham ki samskaram.", "Nenu mee andamaina aavirbhavam.", "Nenu mee madhuramaina anubhavam.", "Nenu mee goppa aascharyam."],
+            31: ["Nenu ippudu oka coconut antha unnanu!", "Nenu ippudu rapid ga weight perugutunna, chubby ga avuthunna.", "Nenu ippudu head-to-toe turn avvagalanu.", "Kaani inka konchem sepu aagaka head-down position ki vellipotha.", "Naa 5 senses ippudu fully working.", "Nenu lona antha observe chesthunna.", "Nenu mee chinni detective ni.", "Nanna, nuvvu amma tho eppudu santhosham ga matladu.", "Nee voice tone naaku telusthundi.", "Nenu mee iddari prema pranam.", "Nenu mee santhosham ki gaanam.", "Nenu mee aanandam ki dhyanam.", "Nenu mee prapancham ki gnaanam.", "Nenu mee aakasham lo sayanthram.", "Nenu mee thota lo sugandham.", "Nenu mee samudhram lo theeram.", "Nenu mee kondallo ghoram.", "Nenu mee adavi lo dooram.", "Nenu mee intlo sneham.", "Nenu mee jeevitham lo mounam.", "Nenu mee santhosham ki samayam.", "Nenu mee aanandam ki sahayam.", "Nenu mee prema ki prathignya.", "Nenu mee jeevitham ki saubhagya.", "Nenu mee andamaina aahvanam.", "Nenu mee madhuramaina aalapana.", "Nenu mee goppa aaradhanam."],
+            32: ["Amma, nenu ippudu oka jicama antha unnanu.", "Naa practice breathing sessions inka ekkuva ayyay.", "Naa body temperature ni nene regulate chesukovadam nerchukuntunna.", "Smart Mango!", "Naa fingernails, toenails ippudu poorthiga perigayi.", "Nenu ippudu scratch cheyagalanu!", "Naa skin ippudu opaque ga, smooth ga undi.", "Nenu ippudu inka andamga unnanu.", "Nenu mee chinni beauty queen/king ni.", "Nanna, nuvvu amma ki emaina katha cheppu.", "Nenu vintu nidra potha.", "Nenu mee iddari prema saaradhi.", "Nenu mee santhosham ki samadhi.", "Nenu mee aanandam ki sanadhi.", "Nenu mee prapancham ki saradhi.", "Nenu mee aakasham lo shishiram.", "Nenu mee thota lo hemantam.", "Nenu mee samudhram lo greeshmam.", "Nenu mee kondallo varsham.", "Nenu mee adavi lo vasantham.", "Nenu mee intlo anandam.", "Nenu mee jeevitham lo aamodam.", "Nenu mee santhosham ki sangeetham.", "Nenu mee aanandam ki sahityam.", "Nenu mee prema ki prathibha.", "Nenu mee jeevitham ki saarthakatha.", "Nenu mee andamaina aavirbhava.", "Nenu mee madhuramaina anubhava.", "Nenu mee goppa aascharya."],
+            33: ["Nenu ippudu oka pineapple antha unnanu!", "Naa immunity develop avuthondi, nee nunchi antibodies teesukuntunna.", "Naa skull inka soft ga ne undi, kaani migatha bones anni full hard aipoyay.", "Naa pupils ippudu light ki react avuthai.", "Nenu ippudu veluthuru ni, cheekati ni gurthinchagalanu.", "Nenu mee chinni light detector ni.", "Nanna, nuvvu amma ki ishtamaina sweets teesukura.", "Amma santhosham chala mukhyam.", "Nenu mee iddari prema prasadham.", "Nenu mee santhosham ki sandesham.", "Nenu mee aanandam ki sadosham.", "Nenu mee prapancham ki pradosham.", "Nenu mee aakasham lo amavasya.", "Nenu mee thota lo pournami.", "Nenu mee samudhram lo sankranthi.", "Nenu mee kondallo ugadi.", "Nenu mee adavi lo diwali.", "Nenu mee intlo dasara.", "Nenu mee jeevitham lo sriramanavami.", "Nenu mee santhosham ki sankalpam.", "Nenu mee aanandam ki sandarbham.", "Nenu mee prema ki prathibimbam.", "Nenu mee jeevitham ki saaphalyam.", "Nenu mee andamaina aalochana.", "Nenu mee madhuramaina anubhuti.", "Nenu mee goppa adbhutam."],
+            34: ["Nenu ippudu oka cantaloupe (kharbuja) antha unnanu!", "Naa fingernails ippudu vella chivara varaku vachesai.", "Nenu head-down position ki vachesa!", "Journey ki ready avuthunna amma.", "Naa central nervous system inka mature avuthondi.", "Naa lungs kuda almost ready.", "Nenu mee chinni passenger ni, ready for take-off.", "Nanna, nuvvu amma ki dhairyam cheppu.", "Meeru idharu kalisi unte nenu strong.", "Nenu mee iddari prema yagnam.", "Nenu mee santhosham ki mantram.", "Nenu mee aanandam ki tantram.", "Nenu mee prapancham ki yantram.", "Nenu mee aakasham lo nakshatram.", "Nenu mee thota lo pushpam.", "Nenu mee samudhram lo rathnam.", "Nenu mee kondallo kanakam.", "Nenu mee adavi lo chaitanyam.", "Nenu mee intlo anubandham.", "Nenu mee jeevitham lo aanandam.", "Nenu mee santhosham ki spandana.", "Nenu mee aanandam ki anukampa.", "Nenu mee prema ki parimala.", "Nenu mee jeevitham ki saubhagyam.", "Nenu mee oohala rajakumari/rajakumarudu.", "Nenu mee nijamaina andam.", "Nenu mee andanaina anugraham."],
+            35: ["Amma, nenu ippudu oka honeydew melon antha unnanu.", "Naa kidneys poorthiga develop aipoyay.", "Naa movements konchem thagguthai, endukante naaku lona place saripovatledu.", "Kaani nenu ikkade unnanu!", "Naa liver kuda poorthiga function chesthondi.", "Nenu ippudu inka chubby ga avuthunna.", "Nenu mee chinni gundu baby ni.", "Nanna, nuvvu amma ki ishtamaina place ki teesukellu.", "Amma ki mood change avasaram.", "Nenu mee iddari prema saagaram.", "Nenu mee santhosham ki theeram.", "Nenu mee aanandam ki dooram.", "Nenu mee prapancham ki ghoram.", "Nenu mee aakasham lo andhakaram.", "Nenu mee thota lo mandaram.", "Nenu mee samudhram lo sancharam.", "Nenu mee kondallo adharam.", "Nenu mee adavi lo aaharam.", "Nenu mee intlo aadaram.", "Nenu mee jeevitham lo aacharam.", "Nenu mee santhosham ki sahakaram.", "Nenu mee aanandam ki satkaram.", "Nenu mee prema ki pracharam.", "Nenu mee jeevitham ki samskaram.", "Nenu mee andamaina aavirbhavam.", "Nenu mee madhuramaina anubhavam.", "Nenu mee goppa aascharyam."],
+            36: ["Nenu ippudu oka romaine lettuce antha podavu unnanu.", "Nenu ippudu 'early term' lo unnanu.", "Ee time nunchi eppudaina raavachu!", "Nenu roju ki half ounce perugutunna.", "Full chubby ga, ready ga unnanu!", "Nenu ippudu nee pelvis loki diguthunna.", "Delivery ki ready avuthunna.", "Nenu mee chinni warrior ni.", "Nanna, nuvvu hospital bag ready cheyyi.", "Time daggara paduthondi.", "Nenu mee iddari prema gamyam.", "Nenu mee santhosham ki aagayam.", "Nenu mee aanandam ki udyogam.", "Nenu mee prapancham ki saubhagyam.", "Nenu mee aakasham lo udayam.", "Nenu mee thota lo payanam.", "Nenu mee samudhram lo vijayam.", "Nenu mee kondallo vinayam.", "Nenu mee adavi lo abhayam.", "Nenu mee intlo aalayam.", "Nenu mee jeevitham lo adhyayam.", "Nenu mee santhosham ki saadhyam.", "Nenu mee aanandam ki saameepyam.", "Nenu mee prema ki prathishta.", "Nenu mee jeevitham ki paripurthi.", "Nenu mee andamaina srushti.", "Nenu mee madhuramaina drushti.", "Nenu mee goppa pushti."],
+            37: ["Amma, nenu ippudu oka swiss chard bunch antha unnanu.", "Naa brain and lungs inka mature avuthunnai.", "Nenu grasping practice chesthunna.", "Bayataki vachaka nee velu gattiga pattukunta!", "Naa head meeda full hair undochu.", "Nenu mee chinni rockstar ni.", "Nanna, nuvvu amma ki dhairyam ga undamani cheppu.", "Nenu mee iddari dhairyam.", "Nenu mee iddari prema tejam.", "Nenu mee santhosham ki vegam.", "Nenu mee aanandam ki yogam.", "Nenu mee prapancham ki tyagam.", "Nenu mee aakasham lo aakasam.", "Nenu mee thota lo aaviri.", "Nenu mee samudhram lo aayuvu.", "Nenu mee kondallo aarthi.", "Nenu mee adavi lo aasha.", "Nenu mee intlo aathma.", "Nenu mee jeevitham lo aayudham.", "Nenu mee santhosham ki saakshi.", "Nenu mee aanandam ki sangeetham.", "Nenu mee prema ki saahithyam.", "Nenu mee jeevitham ki saamraajyam.", "Nenu mee andamaina aavirbhava.", "Nenu mee madhuramaina anubhava.", "Nenu mee goppa aascharya."],
+            38: ["Nenu ippudu oka pumpkin antha unnanu!", "Nenu full term lo unnanu. Anni ready ga unnayi.", "Naa intestines lo meconium (first motion) collect aipoindi.", "Ready to go!", "Naa vocal cords ready ga unnayi.", "Naa first cry kosam waiting.", "Nenu mee chinni singer ni.", "Nanna, nuvvu amma ni eppudu navvisthu undu.", "Laughter is the best medicine.", "Nenu mee iddari prema jyothi.", "Nenu mee santhosham ki reethi.", "Nenu mee aanandam ki preethi.", "Nenu mee prapancham ki neethi.", "Nenu mee aakasham lo khyathi.", "Nenu mee thota lo sthithi.", "Nenu mee samudhram lo gathi.", "Nenu mee kondallo mathi.", "Nenu mee adavi lo rathi.", "Nenu mee intlo sruthi.", "Nenu mee jeevitham lo kruthi.", "Nenu mee santhosham ki shakthi.", "Nenu mee aanandam ki bhakthi.", "Nenu mee prema ki mukthi.", "Nenu mee jeevitham ki yukthi.", "Nenu mee andamaina aakruthi.", "Nenu mee madhuramaina samskruthi.", "Nenu mee goppa prakruthi."],
+            39: ["Amma, nenu ippudu oka mini-watermelon antha unnanu!", "Naa fat layers peruguthunnai, bayata warm ga undataniki.", "Nenu inka wait chesthunna. Perfect time kosam.", "Nuvvu tension padaku.", "Naa brain inka develop avuthondi.", "Nenu roju roju ki smart avuthunna.", "Nenu mee chinni Einstein ni.", "Nanna, nuvvu amma ki ishtamaina movie pettu.", "Time pass avvali kada.", "Nenu mee iddari prema kanuka.", "Nenu mee santhosham ki vinuka.", "Nenu mee aanandam ki penuka.", "Nenu mee prapancham ki kanuka.", "Nenu mee aakasham lo adbhutam.", "Nenu mee thota lo amrutham.", "Nenu mee samudhram lo anubandham.", "Nenu mee kondallo anuragam.", "Nenu mee adavi lo aalapana.", "Nenu mee intlo aahvanam.", "Nenu mee jeevitham lo aarambham.", "Nenu mee santhosham ki sankalpam.", "Nenu mee aanandam ki sandarbham.", "Nenu mee prema ki prathibimbam.", "Nenu mee jeevitham ki saaphalyam.", "Nenu mee andamaina aalochana.", "Nenu mee madhuramaina anubhuti.", "Nenu mee goppa adbhutam."],
+            40: ["Happy due date, Amma!", "Nenu ippudu oka jackfruit antha undochu.", "Packing antha aipoindi!", "Eppudu pilisthe appudu vachestha!", "Journey ki ready ga unnanu.", "Mee iddarini kalavadaniki chala excited ga undi.", "Naa first hug nee kosame, Amma.", "Naa first kiss Nanna kosam.", "Lona chala tight ga undi ippudu.", "Bayataki raavadaniki time vachesindi.", "Nenu mee chinni Mango, ready to meet you.", "Nuvvu tension padaku, nenu strong ga unnanu.", "Mana iddari team work tho ee journey complete cheddam.", "Nee dhairyam naa balam.", "Nanna, Amma ki support ga undu.", "Inka konchem opika, Amma.", "Nenu mee jeevitham lo ki velugu teesukostha.", "Mee intlo naa navvulu vinipisthai.", "Mee iddari madhya inka prema penchutha.", "Nenu mee prapancham.", "Love you forever and always.", "Waiting for your call, Amma.", "The final countdown has begun!", "See you very soon!", "Nee potta ippudu naa sweet home, kaani ippudu pedda intiki raavali.", "Nenu mee andamaina nijam.", "Mee kalalu sakaram cheyyadaniki vastunna.", "Nenu mee varam.", "Nee kannullo anandam choodalani undi.", "Itlu, mee rajakumarudu/rajakumari, Mango."]
         };
 
-        // --- DOM Elements ---
-        const currentDateDisplay = document.getElementById('currentDateDisplay');
-        const currentTrimesterDisplay = document.getElementById('currentTrimester');
-        const currentPregnancyWeekDisplay = document.getElementById('currentPregnancyWeek');
-        const currentBabySizeText = document.getElementById('currentBabySizeText');
-        const currentDailyFactDisplay = document.getElementById('currentDailyFact');
-        const currentDailyTipDisplay = document.getElementById('currentDailyTip');
-        const todaysMealsContentContainer = document.getElementById('todaysMealsContent'); 
-        const trimesterFocusList = document.getElementById('trimesterFocusList');
-        const planNotActiveMessage = document.getElementById('planNotActiveMessage');
-        const todaysPlanSection = document.getElementById('todaysPlanSection');
-        const currentYearSpan = document.getElementById('currentYear');
-
-        // Date Picker Elements
-        const dateInputElement = document.getElementById('dateInput');
-        const viewTomorrowButton = document.getElementById('viewTomorrowButton'); 
-        const selectedDatePlanSection = document.getElementById('selectedDatePlanSection');
-        const selectedDatePlanMessage = document.getElementById('selectedDatePlanMessage');
-        const selectedDatePlanDetails = document.getElementById('selectedDatePlanDetails');
-        const selectedDateDisplay = document.getElementById('selectedDateDisplay');
-        const selectedDateTrimesterDisplay = document.getElementById('selectedDateTrimester');
-        const selectedDatePregnancyWeekDisplay = document.getElementById('selectedDatePregnancyWeek');
-        const selectedDateBabySizeText = document.getElementById('selectedDateBabySizeText');
-        const selectedDateDailyFactDisplay = document.getElementById('selectedDateDailyFact');
-        const selectedDateDailyTipDisplay = document.getElementById('selectedDateDailyTip');
-        const selectedDateMealsContentContainer = document.getElementById('selectedDateMealsContent'); 
-        const selectedDateTrimesterFocusList = document.getElementById('selectedDateTrimesterFocusList');
-        const selectedDateDisplayInlineElements = document.querySelectorAll('.selectedDateDisplayInline');
-
-        // --- Helper Functions ---
-        function formatDate(date) {
-            return date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        }
-        
-        function formatDateForInput(date) {
-            const year = date.getFullYear();
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const day = date.getDate().toString().padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-        
-        function displayAllMealsForDay(mealData, containerElement) {
-            if (!containerElement) {
-                console.error("Main meal container not found for displaying all meals.");
-                return;
-            }
-            containerElement.innerHTML = ''; 
-
-            if (mealData) {
-                displayMealCard('Early Morning', mealData.earlyMorning, containerElement); 
-                displayMealCard('Breakfast', mealData.breakfast, containerElement);
-                displayMealCard('Mid-Morning Snack', mealData.midMorningSnack, containerElement); 
-                displayMealCard('Lunch', mealData.lunch, containerElement);
-                displayMealCard('Evening Snack', mealData.eveningSnack, containerElement); 
-                displayMealCard('Dinner', mealData.dinner, containerElement);
-                displayMealCard('Bedtime', mealData.bedtime, containerElement); 
-            } else {
-                containerElement.innerHTML = '<p class="text-gray-600 p-4 text-center">Meal data not available for this day.</p>';
-            }
-        }
-
-        function displayMealCard(mealTime, mealDetails, parentContainer) { 
-            const mealCard = document.createElement('div');
-            mealCard.className = 'meal-card';
-            mealCard.innerHTML = `<h3>${mealTime}</h3><p>${mealDetails || 'No specific meal listed.'}</p>`;
-            parentContainer.appendChild(mealCard);
-        }
-
-
-        function populateTrimesterFocus(focusPoints, listElement) {
-            listElement.innerHTML = ''; 
-            if (focusPoints && focusPoints.length > 0) {
-                focusPoints.forEach(point => {
-                    const li = document.createElement('li');
-                    li.textContent = point;
-                    listElement.appendChild(li);
-                });
-            } else {
-                listElement.innerHTML = '<li>No specific focus points for this trimester.</li>';
-            }
-        }
-        
-        // --- Core Diet Plan Logic ---
-        function getDietPlanDetails(dateToGetPlanFor, lmpConfig, trimestersConfig) { 
-            const normalizedDate = new Date(dateToGetPlanFor); 
-            normalizedDate.setHours(0, 0, 0, 0);
-
-            let lmpYearForDate;
-            const currentMonth = normalizedDate.getMonth();
-            const currentDayOfMonth = normalizedDate.getDate();
-            const currentFullYear = normalizedDate.getFullYear();
-            let activeTrimesterKey = null;
-
-            const t1StartDate = (year) => new Date(year, trimestersConfig.T1.planStartMonth, trimestersConfig.T1.planStartDate);
-            const t1EndDate = (year) => new Date(year, trimestersConfig.T1.planEndMonth, trimestersConfig.T1.planEndDate);
-            const t2StartDate = (year) => new Date(year, trimestersConfig.T2.planStartMonth, trimestersConfig.T2.planStartDate);
-            const t2EndDate = (year) => new Date(year, trimestersConfig.T2.planEndMonth, trimestersConfig.T2.planEndDate);
-            const t3StartDate = (year) => new Date(year, trimestersConfig.T3.planStartMonth, trimestersConfig.T3.planStartDate);
-            const t3EndDate = (year) => new Date(year + 1, trimestersConfig.T3.planEndMonth, trimestersConfig.T3.planEndDate);
-
-            if (normalizedDate >= t1StartDate(currentFullYear) && normalizedDate <= t1EndDate(currentFullYear)) {
-                lmpYearForDate = currentFullYear;
-                activeTrimesterKey = 'T1';
-            } else if (normalizedDate >= t2StartDate(currentFullYear) && normalizedDate <= t2EndDate(currentFullYear)) {
-                lmpYearForDate = currentFullYear;
-                activeTrimesterKey = 'T2';
-            } else if (normalizedDate >= t3StartDate(currentFullYear) && normalizedDate <= t3EndDate(currentFullYear)) {
-                lmpYearForDate = currentFullYear;
-                activeTrimesterKey = 'T3';
-            } else if (normalizedDate.getFullYear() === currentFullYear && normalizedDate >= t3StartDate(currentFullYear - 1) && normalizedDate <= t3EndDate(currentFullYear - 1) ) {
-                 lmpYearForDate = currentFullYear - 1;
-                 activeTrimesterKey = 'T3';
-            }
-
-            if (!activeTrimesterKey || typeof lmpYearForDate === 'undefined') {
-                return { planActive: false, errorMessage: "The selected date is outside the defined diet plan period, or LMP year could not be determined." };
-            }
-
-            const activeTrimesterDetails = trimestersConfig[activeTrimesterKey];
-            const lmpReferenceDate = new Date(lmpYearForDate, lmpConfig.month, lmpConfig.day, 0, 0, 0, 0);
-            
-            const overallPlanStartDate = t1StartDate(lmpYearForDate); 
-            const overallPlanEndDate = t3EndDate(lmpYearForDate); 
-
-            if (normalizedDate < overallPlanStartDate || normalizedDate > overallPlanEndDate) {
-                 return { planActive: false, errorMessage: "The selected date is outside the overall diet plan window (May 29th - Jan 23rd for the relevant pregnancy)." };
-            }
-
-            const pregnancyDays = Math.max(0, Math.floor((normalizedDate - lmpReferenceDate) / (1000 * 60 * 60 * 24)));
-            const pregnancyWeek = Math.floor(pregnancyDays / 7) + 1; 
-            const pregnancyWeekText = `${pregnancyWeek} (Day ${pregnancyDays + 1} of pregnancy)`;
-
-            let cycleStartDateForTrimester;
-            if (activeTrimesterKey === 'T1') cycleStartDateForTrimester = t1StartDate(lmpYearForDate); 
-            else if (activeTrimesterKey === 'T2') cycleStartDateForTrimester = t2StartDate(lmpYearForDate);
-            else if (activeTrimesterKey === 'T3') cycleStartDateForTrimester = t3StartDate(lmpYearForDate);
-            else { 
-                return { planActive: false, errorMessage: "Could not determine trimester cycle start date."};
-            }
-
-            if (normalizedDate < cycleStartDateForTrimester) {
-                 return { planActive: false, errorMessage: `Selected date is before the start of ${activeTrimesterDetails.name} for this pregnancy cycle.` };
-            }
-
-            const daysIntoTrimesterCycle = Math.floor((normalizedDate - cycleStartDateForTrimester) / (1000 * 60 * 60 * 24));
-            const dayIndexInCycle = daysIntoTrimesterCycle % 7;
-            
-            if (dayIndexInCycle < 0 || dayIndexInCycle >= activeTrimesterDetails.days.length) {
-                 return { planActive: false, errorMessage: "Calculated day index is out of bounds for the trimester's meal cycle." };
-            }
-
-            const mealDataForDay = activeTrimesterDetails.days[dayIndexInCycle];
-
-            if (!mealDataForDay) {
-                return { planActive: false, errorMessage: "Meal data not available for this specific day in the cycle.", trimesterName: activeTrimesterDetails.name, pregnancyWeekText, focusPoints: activeTrimesterDetails.focus };
-            }
-            
-            const babySizeText = allDietData.babySizeComparisons[(pregnancyWeek -1) % allDietData.babySizeComparisons.length] || "growing beautifully!";
-            const dailyFact = allDietData.dailyFacts[(pregnancyWeek -1) % allDietData.dailyFacts.length] || "Every day brings new developments!";
-            const dailyTip = allDietData.dailyTips[(pregnancyWeek-1) % allDietData.dailyTips.length] || "Stay positive and enjoy this journey!";
-
-
-            return {
-                planActive: true,
-                trimesterName: activeTrimesterDetails.name,
-                pregnancyWeekText: pregnancyWeekText,
-                babySizeText: babySizeText, 
-                dailyFact: dailyFact,
-                dailyTip: dailyTip,
-                mealData: mealDataForDay,
-                focusPoints: activeTrimesterDetails.focus,
-                errorMessage: null,
-                lmpYearForDate: lmpYearForDate 
-            };
-        }
-
-        function displayPlanForSelectedDate(dateObject) { 
-            const lmpConfig = { day: allDietData.lmpDay, month: allDietData.lmpMonth };
-            const trimestersConfig = allDietData.trimesters;
-            
-            const planForSelectedDate = getDietPlanDetails(dateObject, lmpConfig, trimestersConfig); 
-            const datePickerMainSection = document.getElementById('datePickerMainSection');
-            
-            selectedDatePlanSection.style.display = 'block';
-
-            if (planForSelectedDate.planActive) {
-                selectedDatePlanMessage.style.display = 'none';
-                selectedDatePlanDetails.style.display = 'block';
-
-                const formattedSelectedDate = formatDate(dateObject);
-                selectedDateDisplay.textContent = formattedSelectedDate;
-                selectedDateDisplayInlineElements.forEach(el => el.textContent = formattedSelectedDate);
-                
-                selectedDateTrimesterDisplay.textContent = planForSelectedDate.trimesterName;
-                selectedDatePregnancyWeekDisplay.textContent = planForSelectedDate.pregnancyWeekText;
-                selectedDateBabySizeText.textContent = planForSelectedDate.babySizeText; 
-                selectedDateDailyFactDisplay.innerHTML = planForSelectedDate.dailyFact; 
-                selectedDateDailyFactDisplay.classList.remove('loader-text');
-                selectedDateDailyTipDisplay.innerHTML = planForSelectedDate.dailyTip; 
-                selectedDateDailyTipDisplay.classList.remove('loader-text');
-                
-                displayAllMealsForDay(planForSelectedDate.mealData, selectedDateMealsContentContainer); 
-                populateTrimesterFocus(planForSelectedDate.focusPoints, selectedDateTrimesterFocusList);
-
-            } else {
-                selectedDatePlanDetails.style.display = 'none';
-                selectedDatePlanMessage.textContent = planForSelectedDate.errorMessage || "No diet plan available for the selected date.";
-                selectedDatePlanMessage.style.display = 'block';
-                selectedDateBabySizeText.textContent = 'N/A';
-                selectedDateDailyFactDisplay.textContent = 'N/A';
-                selectedDateDailyFactDisplay.classList.remove('loader-text');
-                selectedDateDailyTipDisplay.textContent = 'N/A';
-                selectedDateDailyTipDisplay.classList.remove('loader-text');
-            }
-            if (datePickerMainSection && dateObject.getTime() !== (new Date()).setHours(0,0,0,0)) { 
-                datePickerMainSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-
-        // --- Modal Functions ---
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = "block";
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = "none";
-            }
-        }
-
-        // --- Main Logic ---
-        document.addEventListener('DOMContentLoaded', () => { 
+        // --- MAIN LOGIC ---
+        window.onload = function() {
+            // 1. Calculate the current day and week of pregnancy
             const today = new Date();
-            today.setHours(0,0,0,0); 
-            currentDateDisplay.textContent = formatDate(today);
-            currentYearSpan.textContent = today.getFullYear();
-
-            dateInputElement.value = formatDateForInput(today);
-
-
-            const lmpConfig = { day: allDietData.lmpDay, month: allDietData.lmpMonth };
-            const trimestersConfig = allDietData.trimesters;
-
-            const todaysPlan = getDietPlanDetails(new Date(today), lmpConfig, trimestersConfig); 
-
-            if (todaysPlan.planActive) {
-                planNotActiveMessage.style.display = 'none';
-                todaysPlanSection.style.display = 'block';
-
-                currentTrimesterDisplay.textContent = todaysPlan.trimesterName;
-                currentPregnancyWeekDisplay.textContent = todaysPlan.pregnancyWeekText;
-                currentBabySizeText.textContent = todaysPlan.babySizeText; 
-                currentDailyFactDisplay.innerHTML = todaysPlan.dailyFact; 
-                currentDailyFactDisplay.classList.remove('loader-text');
-                currentDailyTipDisplay.innerHTML = todaysPlan.dailyTip; 
-                currentDailyTipDisplay.classList.remove('loader-text');
-                
-                displayAllMealsForDay(todaysPlan.mealData, todaysMealsContentContainer); 
-                populateTrimesterFocus(todaysPlan.focusPoints, trimesterFocusList);
-
-                const lmpYearForDatePicker = todaysPlan.lmpYearForDate || today.getFullYear();
-                dateInputElement.min = formatDateForInput(new Date(lmpYearForDatePicker, trimestersConfig.T1.planStartMonth, trimestersConfig.T1.planStartDate));
-                dateInputElement.max = formatDateForInput(new Date(lmpYearForDatePicker + 1, trimestersConfig.T3.planEndMonth, trimestersConfig.T3.planEndDate));
-
-            } else {
-                planNotActiveMessage.querySelector('p:nth-child(2)').textContent = todaysPlan.errorMessage || "No daily meal plan active for today. Please check the general guidelines.";
-                planNotActiveMessage.style.display = 'block';
-                todaysPlanSection.style.display = 'none';
-                currentTrimesterDisplay.textContent = "N/A";
-                currentPregnancyWeekDisplay.textContent = "N/A";
-                currentBabySizeText.textContent = "N/A";
-                currentDailyFactDisplay.textContent = "Please check back when the plan is active.";
-                currentDailyFactDisplay.classList.remove('loader-text');
-                currentDailyTipDisplay.textContent = "Consult your doctor for general advice.";
-                currentDailyTipDisplay.classList.remove('loader-text');
-                if(todaysMealsContentContainer) todaysMealsContentContainer.innerHTML = `<p class="text-gray-600 p-4 text-center">${todaysPlan.errorMessage || 'No daily meal plan active for today.'}</p>`; 
-                if(trimesterFocusList) trimesterFocusList.innerHTML = '<li>General pregnancy nutrition advice applies. Consult your doctor.</li>';
-
-                const fallbackLmpYear = today.getFullYear();
-                dateInputElement.min = formatDateForInput(new Date(fallbackLmpYear, trimestersConfig.T1.planStartMonth, trimestersConfig.T1.planStartDate));
-                dateInputElement.max = formatDateForInput(new Date(fallbackLmpYear + 1, trimestersConfig.T3.planEndMonth, trimestersConfig.T3.planEndDate));
-            }
+            const startDateUTC = new Date(pregnancyStartDate.getFullYear(), pregnancyStartDate.getMonth(), pregnancyStartDate.getDate());
+            const todayUTC = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             
-             if (dateInputElement.value) {
-                 const initialDateParts = dateInputElement.value.split('-');
-                 const initialSelectedDateObj = new Date(initialDateParts[0], initialDateParts[1] - 1, initialDateParts[2]);
-                 initialSelectedDateObj.setHours(0,0,0,0);
-                 if (initialSelectedDateObj.getTime() !== today.getTime()) { 
-                    displayPlanForSelectedDate(initialSelectedDateObj); 
-                 } else if (selectedDatePlanSection && todaysPlan.planActive){ 
-                    selectedDatePlanSection.style.display = 'block';
-                    selectedDatePlanMessage.style.display = 'none';
-                    selectedDatePlanDetails.style.display = 'block';
-                    const formattedSelectedDate = formatDate(initialSelectedDateObj);
-                    selectedDateDisplay.textContent = formattedSelectedDate;
-                    selectedDateDisplayInlineElements.forEach(el => el.textContent = formattedSelectedDate);
-                    selectedDateTrimesterDisplay.textContent = todaysPlan.trimesterName;
-                    selectedDatePregnancyWeekDisplay.textContent = todaysPlan.pregnancyWeekText;
-                    selectedDateBabySizeText.textContent = todaysPlan.babySizeText; 
-                    selectedDateDailyFactDisplay.innerHTML = todaysPlan.dailyFact; 
-                    selectedDateDailyFactDisplay.classList.remove('loader-text');
-                    selectedDateDailyTipDisplay.innerHTML = todaysPlan.dailyTip; 
-                    selectedDateDailyTipDisplay.classList.remove('loader-text');
-                    displayAllMealsForDay(todaysPlan.mealData, selectedDateMealsContentContainer);
-                    populateTrimesterFocus(todaysPlan.focusPoints, selectedDateTrimesterFocusList);
-                 }
+            const differenceInTime = todayUTC.getTime() - startDateUTC.getTime();
+            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24)) + 1;
+            const currentWeek = Math.floor((differenceInDays - 1) / 7) + 1;
+            
+            document.getElementById('day-counter').textContent = `Day ${differenceInDays}`;
+            document.getElementById('week-counter').textContent = `Week ${currentWeek} mana journey lo!`;
+
+            // 2. Get messages for the current week
+            const messagesForThisWeek = weeklyMessages[currentWeek] || [`Amma, nenu roju roju ki peruguthunna! Nee kosam ready avuthunna!`];
+            
+            // 3. Logic for picking a fresh message for the current week
+            const SEEN_MESSAGES_KEY = `monikaBabyMessages_v10_week${currentWeek}`;
+            let shownIndices = JSON.parse(localStorage.getItem(SEEN_MESSAGES_KEY) || '[]');
+
+            // If all messages for this week have been shown, reset the list for this week
+            if (shownIndices.length >= messagesForThisWeek.length) {
+                shownIndices = [];
+                localStorage.setItem(SEEN_MESSAGES_KEY, JSON.stringify(shownIndices));
             }
 
+            // Filter out messages that have already been shown
+            let availableMessages = messagesForThisWeek.filter((msg, index) => !shownIndices.includes(index));
 
-            dateInputElement.addEventListener('change', () => { 
-                const selectedDateValue = dateInputElement.value;
-                if (!selectedDateValue) { 
-                    selectedDatePlanMessage.textContent = "Please select a date.";
-                    selectedDatePlanMessage.style.display = 'block';
-                    selectedDatePlanDetails.style.display = 'none';
-                    selectedDatePlanSection.style.display = 'block';
-                    return;
-                }
+            // Select a random message from the available ones
+            const randomIndex = Math.floor(Math.random() * availableMessages.length);
+            const chosenMessage = availableMessages[randomIndex];
+            
+            // Find the original index of the chosen message to store it
+            const originalIndex = messagesForThisWeek.indexOf(chosenMessage);
+            
+            // Update the list of shown messages and save to localStorage
+            if (originalIndex > -1) {
+                shownIndices.push(originalIndex);
+                localStorage.setItem(SEEN_MESSAGES_KEY, JSON.stringify(shownIndices));
+            }
 
-                const parts = selectedDateValue.split('-');
-                const selectedDateObj = new Date(parts[0], parts[1] - 1, parts[2]); 
-                selectedDateObj.setHours(0,0,0,0);
-                displayPlanForSelectedDate(selectedDateObj); 
-            });
-
-            viewTomorrowButton.addEventListener('click', () => { 
-                const tomorrow = new Date(); 
-                tomorrow.setDate(tomorrow.getDate() + 1); 
-                tomorrow.setHours(0,0,0,0); 
-                
-                dateInputElement.value = formatDateForInput(tomorrow);
-                displayPlanForSelectedDate(tomorrow); 
-            });
-
-            // Populate Modals with static data
-            const foodsToAvoidContent = document.getElementById('foodsToAvoidContent');
-            foodsToAvoidContent.innerHTML = ''; 
-            allDietData.foodSafety.foodsToAvoid.forEach(item => {
-                const p = document.createElement('p');
-                p.className = 'mb-1 text-sm';
-                p.innerHTML = `<strong>${item.category}:</strong> ${item.items}`;
-                foodsToAvoidContent.appendChild(p);
-            });
-            const foodHandlingContent = document.getElementById('foodHandlingContent');
-            foodHandlingContent.innerHTML = ''; 
-            allDietData.foodSafety.handlingPractices.forEach(item => {
-                const p = document.createElement('p');
-                p.className = 'mb-2 text-sm';
-                p.innerHTML = item;
-                foodHandlingContent.appendChild(p);
-            });
-
-            const keyNutrientsContent = document.getElementById('keyNutrientsContent');
-            keyNutrientsContent.innerHTML = `<h3 class="text-xl font-medium text-green-600 mb-3">${allDietData.keyNutrients.title}</h3>`;
-            allDietData.keyNutrients.sections.forEach(section => {
-                const div = document.createElement('div');
-                div.className = 'mb-3';
-                div.innerHTML = `<h4 class="font-semibold text-md text-green-700">${section.heading}</h4><p class="text-sm text-gray-700">${section.text}</p>`;
-                keyNutrientsContent.appendChild(div);
-            });
-
-            const lifestyleContent = document.getElementById('lifestyleContent');
-            lifestyleContent.innerHTML = `<h3 class="text-xl font-medium text-blue-600 mb-3">${allDietData.lifestyleAndSupplements.title}</h3>`;
-            allDietData.lifestyleAndSupplements.sections.forEach(section => {
-                const div = document.createElement('div');
-                div.className = 'mb-3';
-                div.innerHTML = `<h4 class="font-semibold text-md text-blue-700">${section.heading}</h4><p class="text-sm text-gray-700">${section.text}</p>`;
-                lifestyleContent.appendChild(div);
-            });
-
-            document.getElementById('foodSafetyBtn').addEventListener('click', () => openModal('foodSafetyModal'));
-            document.getElementById('keyNutrientsBtn').addEventListener('click', () => openModal('keyNutrientsModal'));
-            document.getElementById('lifestyleBtn').addEventListener('click', () => openModal('lifestyleModal'));
-        });
+            // 4. Display the message
+            const messageElement = document.getElementById('baby-message');
+            messageElement.style.opacity = 0;
+            messageElement.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                messageElement.textContent = chosenMessage || "Amma, neetho matladadaniki sabdalu vetukuntunna... malli try chey!";
+                messageElement.style.opacity = 1;
+            }, 200);
+        };
     </script>
 </body>
 </html>
